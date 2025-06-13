@@ -174,8 +174,21 @@
       const name = document.getElementById("userName").value;
       const message = document.getElementById("userMessage").value;
       if (name && message) {
-        alert(`Thanks ${name}! Your message has been submitted.`);
-        document.getElementById("easterEggForm").style.display = "none";
+        fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, message }),
+        })
+          .then((res) => res.text())
+          .then(() => {
+            alert(`Thanks ${name}! Your message has been submitted.`);
+            document.getElementById("userName").value = "";
+            document.getElementById("userMessage").value = "";
+            document.getElementById("easterEggForm").style.display = "none";
+          })
+          .catch(() => alert("Submission failed. Try again."));
       } else {
         alert("Please fill in both name and message.");
       }
