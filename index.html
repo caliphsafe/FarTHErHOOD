@@ -14,11 +14,6 @@
   </div>
 
   <div class="container">
-    <div class="nav-bar">
-      <span class="back">← Shared</span>
-      <span class="date">May 14, 2025 at 8:49 PM — Shared</span>
-    </div>
-
     <main>
       <h1>CALPH - FarTHERHOOD</h1>
       <p class="intro">
@@ -64,7 +59,7 @@
       </section>
 
       <p class="description">
-        A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper
+        A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper 
       </p>
 
       <section class="audio-note">
@@ -102,13 +97,12 @@
     <img src="footer_cropped.png" alt="Footer" />
   </div>
 
-  <!-- Shared global audio element -->
+  <!-- Shared audio player -->
   <audio id="sharedAudio"></audio>
 
   <script>
     const sharedAudio = document.getElementById("sharedAudio");
     const playButtons = document.querySelectorAll("button[data-src]");
-
     let currentIndex = -1;
 
     function playTrack(index) {
@@ -128,5 +122,6 @@
       }
     });
   </script>
+
 </body>
 </html>
