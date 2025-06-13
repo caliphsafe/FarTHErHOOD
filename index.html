@@ -20,71 +20,7 @@
         A collection of stories, some connected others not about <mark>father</mark>hood and coparenting in the black community and how the lack there of affects everyone different.
       </p>
 
-      <section class="audio-note">
-        <h2>CALIPH – STORY TIME</h2>
-        <p class="meta">February 28, 2025 at 12:40 AM · Audio · 2m</p>
-        <button onclick="playTrack(0)" data-src="audio/storytime.mp3">▶ Play</button>
-        <p class="transcript">
-          Transcript<br />
-          Little little place between the oh let's switch the conversation up a bit niggas ain't saying shit ...
-        </p>
-      </section>
-
-      <p class="description">
-        Song about the accidental conception of a child in the black community
-      </p>
-
-      <section class="audio-note">
-        <h2>CALIPH – EATER JAMES</h2>
-        <p class="meta">February 28, 2025 at 12:45 AM · Audio · 2m</p>
-        <button onclick="playTrack(1)" data-src="audio/eaterjames.mp3">▶ Play</button>
-        <p class="transcript">
-          Transcript<br />
-          All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...
-        </p>
-      </section>
-
-      <p class="description">
-        A song about secret black love that leads to a bad relationship, failed coparenting "nigga I’m pregnant and it’s your kid" What?? I already got a kid!”
-      </p>
-
-      <section class="audio-note">
-        <h2>CALIPH – BLUE CORNER</h2>
-        <p class="meta">February 13, 2025 at 5:03 PM · Audio · 2m</p>
-        <button onclick="playTrack(2)" data-src="audio/bluecorner.mp3">▶ Play</button>
-        <p class="transcript">
-          Transcript<br />
-          The streets talking I could care less where I'm from we find peace in comparing nike air...
-        </p>
-      </section>
-
-      <p class="description">
-        A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper 
-      </p>
-
-      <section class="audio-note">
-        <h2>CALIPH – OBESERVATIONS / A DOLLAR AND A DAD</h2>
-        <p class="meta">February 28, 2025 at 12:55 AM · Audio · 2m</p>
-        <button onclick="playTrack(3)" data-src="audio/dollardad.mp3">▶ Play</button>
-        <p class="transcript">
-          Transcript<br />
-          Conversations switchin up, niggas always act weird when its time to give it up, give it up, have a....
-        </p>
-      </section>
-
-      <p class="description">
-        Overall review of family dynamic in the hood / crackhead dad encounters his son and opens up about choosing the pipe over him.
-      </p>
-
-      <section class="audio-note">
-        <h2>CALIPH – SEEDS</h2>
-        <p class="meta">February 28, 2025 at 12:43 AM · Audio · 2m</p>
-        <button onclick="playTrack(4)" data-src="audio/seeds.mp3">▶ Play</button>
-        <p class="transcript">
-          Transcript<br />
-          The world getting colder than ever, its getting harder to hold the dinero, I turn robert to ho...
-        </p>
-      </section>
+      <div class="audio-wrapper" id="audioWrapper"></div>
 
       <p class="description">
         Outro about me wanting kids but being afraid to do it with the wrong woman.
@@ -92,9 +28,18 @@
     </main>
   </div>
 
-  <!-- Footer image -->
+  <!-- Footer image with Easter egg icon -->
   <div class="image-footer">
     <img src="footer_cropped.png" alt="Footer" />
+    <div class="easter-egg-icon" onclick="toggleEasterEgg()">✍️</div>
+  </div>
+
+  <!-- Hidden Easter Egg Message Form -->
+  <div class="easter-egg-form" id="easterEggForm">
+    <h3>Leave a Message</h3>
+    <input type="text" id="userName" placeholder="Your Name" />
+    <textarea id="userMessage" placeholder="Message about the project or to your father..."></textarea>
+    <button onclick="submitMessage()">Submit</button>
   </div>
 
   <!-- Shared audio player -->
@@ -102,26 +47,109 @@
 
   <script>
     const sharedAudio = document.getElementById("sharedAudio");
-    const playButtons = document.querySelectorAll("button[data-src]");
+    const audioWrapper = document.getElementById("audioWrapper");
+
+    const tracks = [
+      {
+        title: "CALIPH – STORY TIME",
+        date: "February 28, 2025 at 12:40 AM",
+        file: "audio/storytime.mp3",
+        transcript: "Little little place between the oh let's switch the conversation up a bit niggas ain't saying shit ...",
+        description: "Song about the accidental conception of a child in the black community"
+      },
+      {
+        title: "CALIPH – EATER JAMES",
+        date: "February 28, 2025 at 12:45 AM",
+        file: "audio/eaterjames.mp3",
+        transcript: "All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...",
+        description: "A song about secret black love that leads to a bad relationship, failed coparenting \"nigga I’m pregnant and it’s your kid\" What?? I already got a kid!”"
+      },
+      {
+        title: "CALIPH – BLUE CORNER",
+        date: "February 13, 2025 at 5:03 PM",
+        file: "audio/bluecorner.mp3",
+        transcript: "The streets talking I could care less where I'm from we find peace in comparing nike air...",
+        description: "A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper"
+      },
+      {
+        title: "CALIPH – OBESERVATIONS / A DOLLAR AND A DAD",
+        date: "February 28, 2025 at 12:55 AM",
+        file: "audio/dollardad.mp3",
+        transcript: "Conversations switchin up, niggas always act weird when its time to give it up, give it up, have a....",
+        description: "Overall review of family dynamic in the hood / crackhead dad encounters his son and opens up about choosing the pipe over him."
+      },
+      {
+        title: "CALIPH – SEEDS",
+        date: "February 28, 2025 at 12:43 AM",
+        file: "audio/seeds.mp3",
+        transcript: "The world getting colder than ever, its getting harder to hold the dinero, I turn robert to ho...",
+        description: "Outro about me wanting kids but being afraid to do it with the wrong woman."
+      }
+    ];
+
     let currentIndex = -1;
 
+    function renderTracks() {
+      audioWrapper.innerHTML = "";
+      tracks.forEach((track, i) => {
+        const html = `
+        <section class="audio-note">
+          <h2>${track.title}</h2>
+          <p class="meta">${track.date} · Audio · 2m</p>
+          <div class="audio-controls">
+            <button onclick="playTrack(${i - 1})">⏮️</button>
+            <button onclick="playTrack(${i})" data-src="${track.file}">▶ Play</button>
+            <button onclick="playTrack(${i + 1})">⏭️</button>
+          </div>
+          <progress id="progress${i}" value="0" max="1"></progress>
+          <p class="transcript">
+            Transcript<br />
+            ${track.transcript}
+          </p>
+          <p class="description">${track.description}</p>
+        </section>`;
+        audioWrapper.innerHTML += html;
+      });
+    }
+
     function playTrack(index) {
-      const src = playButtons[index].getAttribute("data-src");
-      if (currentIndex === index && !sharedAudio.paused) {
-        sharedAudio.pause();
-      } else {
-        sharedAudio.src = src;
-        sharedAudio.play();
-        currentIndex = index;
-      }
+      if (index < 0 || index >= tracks.length) return;
+      const src = tracks[index].file;
+      sharedAudio.src = src;
+      sharedAudio.play();
+      currentIndex = index;
     }
 
     sharedAudio.addEventListener("ended", () => {
-      if (currentIndex + 1 < playButtons.length) {
+      if (currentIndex + 1 < tracks.length) {
         playTrack(currentIndex + 1);
       }
     });
-  </script>
 
+    sharedAudio.addEventListener("timeupdate", () => {
+      const progress = document.getElementById(`progress${currentIndex}`);
+      if (progress && sharedAudio.duration > 0) {
+        progress.value = sharedAudio.currentTime / sharedAudio.duration;
+      }
+    });
+
+    function toggleEasterEgg() {
+      const form = document.getElementById("easterEggForm");
+      form.style.display = form.style.display === "block" ? "none" : "block";
+    }
+
+    function submitMessage() {
+      const name = document.getElementById("userName").value;
+      const message = document.getElementById("userMessage").value;
+      if (name && message) {
+        alert(`Thanks ${name}! Your message has been submitted.`);
+        document.getElementById("easterEggForm").style.display = "none";
+      } else {
+        alert("Please fill in both name and message.");
+      }
+    }
+
+    renderTracks();
+  </script>
 </body>
 </html>
