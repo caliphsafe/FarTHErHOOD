@@ -5,6 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CALIPH - FarTHErHOOD</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .easter-egg-icon {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      font-size: 1.4rem;
+      color: #facc15;
+      cursor: pointer;
+    }
+    .easter-egg-form {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: #111;
+      padding: 16px;
+      border-radius: 10px;
+      width: 280px;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    .easter-egg-form h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: #facc15;
+    }
+    .easter-egg-form input,
+    .easter-egg-form textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+    }
+    .easter-egg-form button {
+      background: #facc15;
+      color: #000;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
  
@@ -34,7 +80,7 @@
     <div class="easter-egg-icon" onclick="toggleEasterEgg()">✍️</div>
   </div>
 
-  <!-- Hidden Easter Egg Message Form -->
+  <!-- Tooltip-style Easter Egg Message Form -->
   <div class="easter-egg-form" id="easterEggForm">
     <h3>Leave a Message</h3>
     <input type="text" id="userName" placeholder="Your Name" />
@@ -97,9 +143,7 @@
           <h2>${track.title}</h2>
           <p class="meta">${track.date} · Audio · 2m</p>
           <div class="audio-controls">
-            <button onclick="playTrack(${i - 1})">⏮️</button>
             <button onclick="playTrack(${i})" data-src="${track.file}">▶ Play</button>
-            <button onclick="playTrack(${i + 1})">⏭️</button>
           </div>
           <progress id="progress${i}" value="0" max="1"></progress>
           <p class="transcript">
