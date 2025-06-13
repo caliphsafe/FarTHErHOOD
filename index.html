@@ -50,10 +50,22 @@
       cursor: pointer;
       width: 100%;
     }
+    .messages-section {
+      margin-top: 60px;
+    }
+    .message {
+      background: #1a1a1a;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .message strong {
+      color: #facc15;
+    }
   </style>
 </head>
 <body>
- 
+
   <!-- Header image -->
   <div class="image-header">
     <img src="header_cropped.png" alt="Header" />
@@ -67,6 +79,13 @@
       </p>
 
       <div class="audio-wrapper" id="audioWrapper"></div>
+
+      <!-- Fan Messages Display -->
+      <div class="messages-section">
+        <h2>Messages from Listeners</h2>
+        <div id="fanMessages">Loading messages...</div>
+      </div>
+
     </main>
   </div>
 
@@ -170,34 +189,60 @@
       form.style.display = form.style.display === "block" ? "none" : "block";
     }
 
-function submitMessage() {
-  const name = document.getElementById("userName").value;
-  const message = document.getElementById("userMessage").value;
-  
-  if (name && message) {
-    fetch("https://script.google.com/macros/s/AKfycbyx7R8zXS4BhLurI2sjfVq40ZWaGpT7jOPI0NDmK_Kia1vXFK_9ReYfAcpkafBWxFvk/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name, message })
-    })
-    .then(res => res.text())
-    .then(response => {
-      alert(`Thanks ${name}! Your message has been submitted.`);
-      document.getElementById("userName").value = "";
-      document.getElementById("userMessage").value = "";
-      document.getElementById("easterEggForm").style.display = "none";
-    })
-    .catch(err => {
-      console.error("Error submitting message:", err);
-      alert("Submission failed. Try again.");
-    });
-  } else {
-    alert("Please fill in both name and message.");
-  }
-}
+    function submitMessage() {
+      const name = document.getElementById("userName").value;
+      const message = document.getElementById("userMessage").value;
 
+      if (name && message) {
+        fetch("https://script.google.com/macros/s/AKfycbyx7R8zXS4BhLurI2sjfVq40ZWaGpT7jOPI0NDmK_Kia1vXFK_9ReYfAcpkafBWxFvk/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, message })
+        })
+        .then(res => res.text())
+        .then(response => {
+          alert(`Thanks ${name}! Your message has been submitted.`);
+          document.getElementById("userName").value = "";
+          document.getElementById("userMessage").value = "";
+          document.getElementById("easterEggForm").style.display = "none";
+          loadMessages(); // Refresh message list
+        })
+        .catch(err => {
+          console.error("Error submitting message:", err);
+          alert("Submission failed. Try again.");
+        });
+      } else {
+        alert("Please fill in both name and message.");
+      }
+    }
+
+    function loadMessages() {
+      const fanMessages = document.getElementById("fanMessages");
+      fetch("https://opensheet.elk.sh/1tKcRtbF7vJEvutjHAUvU72gVYwEVEpIDWfN3Vab7efE/Sheet1")
+        .then(res => res.json())
+        .then(data => {
+          if (!data || !data.length) {
+            fanMessages.innerHTML = "<p>No messages yet.</p>";
+            return;
+          }
+          fanMessages.innerHTML = data.reverse().map(entry => `
+            <div class="message">
+              <p><strong>${entry.name}</strong></p>
+              <p>${entry.message}</p>
+            </div>
+          `).join('');
+        })
+        .catch(err => {
+          fanMessages.innerHTML = "<p>Error loading messages.</p>";
+          console.error(err);
+        });
+    }
+
+    renderTracks();
+    loadMessages();
   </script>
+
 </body>
 </html>
