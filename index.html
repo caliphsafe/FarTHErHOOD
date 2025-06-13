@@ -14,6 +14,11 @@
   </div>
 
   <div class="container">
+    <div class="nav-bar">
+      <span class="back">← Shared</span>
+      <span class="date">May 14, 2025 at 8:49 PM — Shared</span>
+    </div>
+
     <main>
       <h1>CALPH - FarTHERHOOD</h1>
       <p class="intro">
@@ -23,10 +28,7 @@
       <section class="audio-note">
         <h2>CALIPH – STORY TIME</h2>
         <p class="meta">February 28, 2025 at 12:40 AM · Audio · 2m</p>
-        <button onclick="playAudio(0)">▶ Play</button>
-        <audio id="audio0">
-          <source src="audio/storytime.mp3" type="audio/mpeg" />
-        </audio>
+        <button onclick="playTrack(0)" data-src="audio/storytime.mp3">▶ Play</button>
         <p class="transcript">
           Transcript<br />
           Little little place between the oh let's switch the conversation up a bit niggas ain't saying shit ...
@@ -40,10 +42,7 @@
       <section class="audio-note">
         <h2>CALIPH – EATER JAMES</h2>
         <p class="meta">February 28, 2025 at 12:45 AM · Audio · 2m</p>
-        <button onclick="playAudio(1)">▶ Play</button>
-        <audio id="audio1">
-          <source src="audio/eaterjames.mp3" type="audio/mpeg" />
-        </audio>
+        <button onclick="playTrack(1)" data-src="audio/eaterjames.mp3">▶ Play</button>
         <p class="transcript">
           Transcript<br />
           All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...
@@ -57,10 +56,7 @@
       <section class="audio-note">
         <h2>CALIPH – BLUE CORNER</h2>
         <p class="meta">February 13, 2025 at 5:03 PM · Audio · 2m</p>
-        <button onclick="playAudio(2)">▶ Play</button>
-        <audio id="audio2">
-          <source src="audio/bluecorner.mp3" type="audio/mpeg" />
-        </audio>
+        <button onclick="playTrack(2)" data-src="audio/bluecorner.mp3">▶ Play</button>
         <p class="transcript">
           Transcript<br />
           The streets talking I could care less where I'm from we find peace in comparing nike air...
@@ -74,10 +70,7 @@
       <section class="audio-note">
         <h2>CALIPH – OBESERVATIONS / A DOLLAR AND A DAD</h2>
         <p class="meta">February 28, 2025 at 12:55 AM · Audio · 2m</p>
-        <button onclick="playAudio(3)">▶ Play</button>
-        <audio id="audio3">
-          <source src="audio/dollardad.mp3" type="audio/mpeg" />
-        </audio>
+        <button onclick="playTrack(3)" data-src="audio/dollardad.mp3">▶ Play</button>
         <p class="transcript">
           Transcript<br />
           Conversations switchin up, niggas always act weird when its time to give it up, give it up, have a....
@@ -91,10 +84,7 @@
       <section class="audio-note">
         <h2>CALIPH – SEEDS</h2>
         <p class="meta">February 28, 2025 at 12:43 AM · Audio · 2m</p>
-        <button onclick="playAudio(4)">▶ Play</button>
-        <audio id="audio4">
-          <source src="audio/seeds.mp3" type="audio/mpeg" />
-        </audio>
+        <button onclick="playTrack(4)" data-src="audio/seeds.mp3">▶ Play</button>
         <p class="transcript">
           Transcript<br />
           The world getting colder than ever, its getting harder to hold the dinero, I turn robert to ho...
@@ -112,36 +102,30 @@
     <img src="footer_cropped.png" alt="Footer" />
   </div>
 
-  <script>
-    const audios = [
-      document.getElementById("audio0"),
-      document.getElementById("audio1"),
-      document.getElementById("audio2"),
-      document.getElementById("audio3"),
-      document.getElementById("audio4")
-    ];
+  <!-- Shared global audio element -->
+  <audio id="sharedAudio"></audio>
 
-    function playAudio(index) {
-      audios.forEach((audio, i) => {
-        if (i === index) {
-          if (audio.paused) {
-            audio.play();
-          } else {
-            audio.pause();
-          }
-        } else {
-          audio.pause();
-          audio.currentTime = 0;
-        }
-      });
+  <script>
+    const sharedAudio = document.getElementById("sharedAudio");
+    const playButtons = document.querySelectorAll("button[data-src]");
+
+    let currentIndex = -1;
+
+    function playTrack(index) {
+      const src = playButtons[index].getAttribute("data-src");
+      if (currentIndex === index && !sharedAudio.paused) {
+        sharedAudio.pause();
+      } else {
+        sharedAudio.src = src;
+        sharedAudio.play();
+        currentIndex = index;
+      }
     }
 
-    audios.forEach((audio, i) => {
-      audio.addEventListener("ended", () => {
-        if (audios[i + 1]) {
-          audios[i + 1].play();
-        }
-      });
+    sharedAudio.addEventListener("ended", () => {
+      if (currentIndex + 1 < playButtons.length) {
+        playTrack(currentIndex + 1);
+      }
     });
   </script>
 </body>
