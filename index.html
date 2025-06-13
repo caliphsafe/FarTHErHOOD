@@ -68,6 +68,8 @@
 
       <div class="audio-wrapper" id="audioWrapper"></div>
 
+      <div id="descriptionsWrapper"></div>
+
       <p class="description">
         Outro about me wanting kids but being afraid to do it with the wrong woman.
       </p>
@@ -94,6 +96,7 @@
   <script>
     const sharedAudio = document.getElementById("sharedAudio");
     const audioWrapper = document.getElementById("audioWrapper");
+    const descriptionsWrapper = document.getElementById("descriptionsWrapper");
 
     const tracks = [
       {
@@ -137,8 +140,10 @@
 
     function renderTracks() {
       audioWrapper.innerHTML = "";
+      descriptionsWrapper.innerHTML = "";
+
       tracks.forEach((track, i) => {
-        const html = `
+        const audioHTML = `
         <section class="audio-note">
           <h2>${track.title}</h2>
           <p class="meta">${track.date} · Audio · 2m</p>
@@ -149,9 +154,12 @@
             Transcript<br />
             ${track.transcript}
           </p>
-          <p class="description">${track.description}</p>
         </section>`;
-        audioWrapper.innerHTML += html;
+
+        const descriptionHTML = `<p class="description">${track.description}</p>`;
+
+        audioWrapper.innerHTML += audioHTML;
+        descriptionsWrapper.innerHTML += descriptionHTML;
       });
     }
 
