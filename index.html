@@ -6,61 +6,32 @@
   <title>CALIPH - FarTHErHOOD</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .easter-egg-icon {
-      position: absolute;
-      bottom: 10px;
-      right: 20px;
-      font-size: 1.4rem;
-      color: #facc15;
-      cursor: pointer;
+    .audio-note {
+      margin-bottom: 40px;
     }
-    .easter-egg-form {
-      display: none;
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background: #111;
-      padding: 16px;
-      border-radius: 10px;
-      width: 280px;
-      z-index: 9999;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-    .easter-egg-form h3 {
-      margin-top: 0;
-      font-size: 1rem;
-      color: #facc15;
-    }
-    .easter-egg-form input,
-    .easter-egg-form textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 6px;
-      border-radius: 6px;
-      border: none;
-      font-size: 0.9rem;
-    }
-    .easter-egg-form button {
+
+    .audio-controls button {
       background: #facc15;
       color: #000;
       border: none;
-      padding: 8px;
+      padding: 6px 12px;
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .description {
+      font-style: italic;
+      margin-top: -20px;
+      margin-bottom: 40px;
+      color: #ccc;
+    }
+
+    .image-header img,
+    .image-footer img {
       width: 100%;
-    }
-    .messages-section {
-      margin-top: 60px;
-    }
-    .message {
-      background: #1a1a1a;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-    }
-    .message strong {
-      color: #facc15;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
@@ -79,27 +50,12 @@
       </p>
 
       <div class="audio-wrapper" id="audioWrapper"></div>
-
-      <!-- Fan Messages Display -->
-      <div class="messages-section">
-        <h2>Messages from Listeners</h2>
-        <div id="fanMessages">Loading messages...</div>
-      </div>
     </main>
   </div>
 
-  <!-- Footer image with Easter egg icon -->
+  <!-- Footer image -->
   <div class="image-footer">
     <img src="footer_cropped.png" alt="Footer" />
-    <div class="easter-egg-icon" onclick="toggleEasterEgg()">✍️</div>
-  </div>
-
-  <!-- Tooltip-style Easter Egg Message Form -->
-  <div class="easter-egg-form" id="easterEggForm">
-    <h3>Leave a Message</h3>
-    <input type="text" id="userName" placeholder="Your Name" />
-    <textarea id="userMessage" placeholder="Message about the project or to your father..."></textarea>
-    <button onclick="submitMessage()">Submit</button>
   </div>
 
   <!-- Shared audio player -->
@@ -183,64 +139,8 @@
       }
     });
 
-    function toggleEasterEgg() {
-      const form = document.getElementById("easterEggForm");
-      form.style.display = form.style.display === "block" ? "none" : "block";
-    }
-
-    function submitMessage() {
-      const name = document.getElementById("userName").value.trim();
-      const message = document.getElementById("userMessage").value.trim();
-
-      if (name && message) {
-        fetch("https://script.google.com/macros/s/AKfycbxOLV4mvaW3suhUnarQvKq9juOQykqcP9fsgv3JQUUuSKOVzRmFRPEcfQLHASlrsFsu/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ name, message })
-        })
-        .then(res => res.text())
-        .then(response => {
-          alert(`Thanks ${name}! Your message has been submitted.`);
-          document.getElementById("userName").value = "";
-          document.getElementById("userMessage").value = "";
-          document.getElementById("easterEggForm").style.display = "none";
-          loadMessages(); // refresh
-        })
-        .catch(err => {
-          console.error("Error submitting message:", err);
-          alert("Submission failed. Try again.");
-        });
-      } else {
-        alert("Please fill in both name and message.");
-      }
-    }
-
-    function loadMessages() {
-      const fanMessages = document.getElementById("fanMessages");
-      fetch("https://opensheet.elk.sh/1tKcRtbF7vJEvutjHAUvU72gVYwEVEpIDWfN3Vab7efE/Sheet1")
-        .then(res => res.json())
-        .then(data => {
-          if (!data || !data.length) {
-            fanMessages.innerHTML = "<p>No messages yet.</p>";
-            return;
-          }
-          fanMessages.innerHTML = data.reverse().map(entry => `
-            <div class="message">
-              <p><strong>${entry.name}</strong></p>
-              <p>${entry.message}</p>
-            </div>
-          `).join('');
-        })
-        .catch(err => {
-          fanMessages.innerHTML = "<p>Error loading messages.</p>";
-          console.error(err);
-        });
-    }
-
     renderTracks();
-    loadMessages();
   </script>
+
 </body>
 </html>
