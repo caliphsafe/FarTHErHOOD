@@ -85,7 +85,6 @@
         <h2>Messages from Listeners</h2>
         <div id="fanMessages">Loading messages...</div>
       </div>
-
     </main>
   </div>
 
@@ -158,7 +157,7 @@
           <h2>${track.title}</h2>
           <p class="meta">${track.date} · Audio · 2m</p>
           <div class="audio-controls">
-            <button onclick="playTrack(${i})" data-src="${track.file}">▶ Play</button>
+            <button onclick="playTrack(${i})">▶ Play</button>
           </div>
           <p class="transcript">
             Transcript<br />
@@ -194,7 +193,7 @@
       const message = document.getElementById("userMessage").value;
 
       if (name && message) {
-        fetch("https://script.google.com/macros/s/AKfycbyx7R8zXS4BhLurI2sjfVq40ZWaGpT7jOPI0NDmK_Kia1vXFK_9ReYfAcpkafBWxFvk/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbxtpGAdrLCK2r2LPapH0HWeW5AyvNnNbnnH7SlyT6Gz33eUt16fNBhVmqN_aVjwcAU/exec", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -207,7 +206,7 @@
           document.getElementById("userName").value = "";
           document.getElementById("userMessage").value = "";
           document.getElementById("easterEggForm").style.display = "none";
-          loadMessages(); // Refresh message list
+          loadMessages(); // Refresh
         })
         .catch(err => {
           console.error("Error submitting message:", err);
@@ -242,8 +241,6 @@
 
     renderTracks();
     loadMessages();
-    setInterval(loadMessages, 15000); // Real-time message updates every 15 sec
   </script>
-
 </body>
 </html>
