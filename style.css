@@ -20,6 +20,8 @@ body {
 .image-header img,
 .image-footer img {
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   display: block;
 }
 
@@ -27,6 +29,8 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
   z-index: 1000;
 }
 
@@ -34,26 +38,9 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 1000;
-}
-
-/* ===== Nav Section (Shared label + date) ===== */
-.nav-bar {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
-
-.back {
-  color: #facc15;
-  font-size: 1rem;
-  margin-bottom: 2px;
-  cursor: pointer;
-}
-
-.date {
-  font-size: 0.8rem;
-  color: #888;
+  justify-content: center;
+  z-index: 1000;
 }
 
 /* ===== Page Title and Paragraphs ===== */
@@ -132,4 +119,4 @@ audio {
   button {
     width: 100%;
   }
-} 
+}
