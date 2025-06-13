@@ -8,21 +8,16 @@
 </head>
 <body>
 
+  <!-- Header image -->
+  <div class="image-header">
+    <img src="header_cropped.png" alt="Header" />
+  </div>
+
   <div class="container">
-    <header class="top-bar">
-      <div class="status-bar">
-        <span class="time">3:16</span>
-        <div class="icons">
-          <span>📶</span>
-          <span>📡</span>
-          <span>🔋</span>
-        </div>
-      </div>
-      <div class="nav-bar">
-        <span class="back">← Search</span>
-        <span class="date">May 14, 2025 at 8:49 PM — Shared</span>
-      </div>
-    </header>
+    <div class="nav-bar">
+      <span class="back">← Shared</span>
+      <span class="date">May 14, 2025 at 8:49 PM — Shared</span>
+    </div>
 
     <main>
       <h1>CALPH - FarTHERHOOD</h1>
@@ -33,9 +28,9 @@
       <section class="audio-note">
         <h2>CALIPH – STORY TIME</h2>
         <p class="meta">February 28, 2025 at 12:40 AM · Audio · 2m</p>
-        <audio controls>
+        <button onclick="playAudio(0)">▶ Play</button>
+        <audio id="audio0">
           <source src="audio/storytime.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
         <p class="transcript">
           Transcript<br />
@@ -50,9 +45,9 @@
       <section class="audio-note">
         <h2>CALIPH – EATER JAMES</h2>
         <p class="meta">February 28, 2025 at 12:45 AM · Audio · 2m</p>
-        <audio controls>
+        <button onclick="playAudio(1)">▶ Play</button>
+        <audio id="audio1">
           <source src="audio/eaterjames.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
         <p class="transcript">
           Transcript<br />
@@ -60,16 +55,16 @@
         </p>
       </section>
 
-            <p class="description">
-        A song about secret black love that leads to a bad relationship, failed coparenting "nigga I’m pregnant and it’s your kid" What?? I already got a kid!” 
+      <p class="description">
+        A song about secret black love that leads to a bad relationship, failed coparenting "nigga I’m pregnant and it’s your kid" What?? I already got a kid!”
       </p>
 
       <section class="audio-note">
         <h2>CALIPH – BLUE CORNER</h2>
         <p class="meta">February 13, 2025 at 5:03 PM · Audio · 2m</p>
-        <audio controls>
+        <button onclick="playAudio(2)">▶ Play</button>
+        <audio id="audio2">
           <source src="audio/bluecorner.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
         <p class="transcript">
           Transcript<br />
@@ -77,52 +72,82 @@
         </p>
       </section>
 
-                  <p class="description">
-        A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper 
+      <p class="description">
+        A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper
       </p>
 
       <section class="audio-note">
         <h2>CALIPH – OBESERVATIONS / A DOLLAR AND A DAD</h2>
         <p class="meta">February 28, 2025 at 12:55 AM · Audio · 2m</p>
-        <audio controls>
+        <button onclick="playAudio(3)">▶ Play</button>
+        <audio id="audio3">
           <source src="audio/dollardad.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
         <p class="transcript">
           Transcript<br />
           Conversations switchin up, niggas always act weird when its time to give it up, give it up, have a....
         </p>
       </section>
-                    <p class="description">
+
+      <p class="description">
         Overall review of family dynamic in the hood / crackhead dad encounters his son and opens up about choosing the pipe over him.
       </p>
 
-             <section class="audio-note">
+      <section class="audio-note">
         <h2>CALIPH – SEEDS</h2>
         <p class="meta">February 28, 2025 at 12:43 AM · Audio · 2m</p>
-        <audio controls>
+        <button onclick="playAudio(4)">▶ Play</button>
+        <audio id="audio4">
           <source src="audio/seeds.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
         <p class="transcript">
           Transcript<br />
           The world getting colder than ever, its getting harder to hold the dinero, I turn robert to ho...
         </p>
       </section>
-                    <p class="description">
+
+      <p class="description">
         Outro about me wanting kids but being afraid to do it with the wrong woman.
       </p>
-
     </main>
   </div>
-<!-- Floating Yellow Edit Icon -->
-<div class="floating-top-icon">✏️</div>
 
-<!-- Floating Bottom Toolbar -->
-<div class="floating-bottom-bar">
-  <span>📎</span>
-  <span>🗑️</span>
-  <span>✅</span>
-</div>
+  <!-- Footer image -->
+  <div class="image-footer">
+    <img src="footer_cropped.png" alt="Footer" />
+  </div>
+
+  <script>
+    const audios = [
+      document.getElementById("audio0"),
+      document.getElementById("audio1"),
+      document.getElementById("audio2"),
+      document.getElementById("audio3"),
+      document.getElementById("audio4")
+    ];
+
+    function playAudio(index) {
+      audios.forEach((audio, i) => {
+        if (i === index) {
+          if (audio.paused) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }
+
+    audios.forEach((audio, i) => {
+      audio.addEventListener("ended", () => {
+        if (audios[i + 1]) {
+          audios[i + 1].play();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
