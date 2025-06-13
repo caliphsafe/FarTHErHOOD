@@ -193,7 +193,7 @@
       const message = document.getElementById("userMessage").value;
 
       if (name && message) {
-        fetch("https://script.google.com/macros/s/AKfycbxtpGAdrLCK2r2LPapH0HWeW5AyvNnNbnnH7SlyT6Gz33eUt16fNBhVmqN_aVjwcAU/exec", {
+        fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjKVbyQDgifNokjNwJv-Wvx7VgjWASslGJ4CSeABUV7oSIlLSlfrdU-ymWX0s6OLGPT-gF6ry6pl8WvAuBrBWkw6oO9Uctp_W4fNZcjERqI1Q8d1oNPXlXu9uoyKiirYAdqvzR851Z6RuLRH05VoxxPwyOnFHo50k4oht1R6PTwzdzFBT6_hJn4lnYqrarGzo8-9PZpfJaJIoDq5EFlTWhDTdQS6RiiTNsaeJUnCxJL7dWKTa-jZrABfNcECrxvjZa0gZwU9it3h-c4rmy3tnBoDSNz9A&lib=MPmaC1XupbeUuxFZeZZIsPvzjEQtu1URK", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -206,7 +206,7 @@
           document.getElementById("userName").value = "";
           document.getElementById("userMessage").value = "";
           document.getElementById("easterEggForm").style.display = "none";
-          loadMessages(); // Refresh
+          loadMessages();
         })
         .catch(err => {
           console.error("Error submitting message:", err);
