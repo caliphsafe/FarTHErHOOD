@@ -12,33 +12,36 @@ body {
   padding: 16px;
   max-width: 600px;
   margin: 0 auto;
-  padding-bottom: 100px; /* Makes room for floating bottom icons */
+  padding-bottom: 100px;
+  padding-top: 80px;
 }
 
-/* ===== Top Status and Nav ===== */
-.top-bar {
-  position: sticky;
+/* ===== Header and Footer Images ===== */
+.image-header img,
+.image-footer img {
+  width: 100%;
+  display: block;
+}
+
+.image-header {
+  position: fixed;
   top: 0;
-  background-color: #000;
-  z-index: 100;
-  padding-bottom: 12px;
+  width: 100%;
+  z-index: 1000;
 }
 
-.status-bar {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: #ccc;
-  margin-bottom: 4px;
+.image-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-.icons span {
-  margin-left: 6px;
-}
-
+/* ===== Nav Section (Shared label + date) ===== */
 .nav-bar {
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 }
 
 .back {
@@ -53,7 +56,7 @@ body {
   color: #888;
 }
 
-/* ===== Page Title and Text ===== */
+/* ===== Page Title and Paragraphs ===== */
 h1 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -92,6 +95,20 @@ mark {
   margin-bottom: 10px;
 }
 
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
 audio {
   width: 100%;
   margin-bottom: 12px;
@@ -104,34 +121,15 @@ audio {
   padding-top: 10px;
 }
 
-/* ===== Floating Icons ===== */
-.floating-top-icon {
-  position: fixed;
-  top: 12px;
-  right: 16px;
-  font-size: 1.2rem;
-  color: #facc15;
-  background: transparent;
-  z-index: 200;
-}
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+    padding-top: 80px;
+    padding-bottom: 100px;
+  }
 
-.floating-bottom-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 600px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-around;
-  background-color: #000;
-  padding: 12px 0;
-  border-top: 1px solid #333;
-  z-index: 200;
-}
-
-.floating-bottom-bar span {
-  font-size: 1.4rem;
-  color: #facc15;
-  cursor: pointer;
-}
+  button {
+    width: 100%;
+  }
+} 
