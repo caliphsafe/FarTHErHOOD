@@ -28,6 +28,12 @@ h1 {
   margin-bottom: 20px;
 }
 
+.description {
+  font-style: italic;
+  color: #bbb;
+  margin-top: -12px;
+}
+
 mark {
   background-color: #facc15;
   color: black;
@@ -58,6 +64,7 @@ mark {
   color: #ccc;
   border-top: 1px solid #333;
   padding-top: 10px;
+  line-height: 1.4;
 }
 
 .audio-controls button {
@@ -69,6 +76,12 @@ mark {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 12px;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.audio-controls button:hover {
+  background: #ffe58f;
 }
 
 /* === Header & Footer Bars === */
@@ -123,6 +136,11 @@ mark {
   font-size: 0.9rem;
 }
 
+.note-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
 .note-form button {
   background: #facc15;
   color: #000;
@@ -132,6 +150,11 @@ mark {
   font-weight: bold;
   cursor: pointer;
   width: 100%;
+  font-size: 0.95rem;
+}
+
+.note-form button:hover {
+  background: #ffe58f;
 }
 
 .message {
@@ -139,6 +162,15 @@ mark {
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 10px;
+}
+
+.message p {
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.message strong {
+  color: #facc15;
 }
 
 .messages-section {
@@ -151,6 +183,14 @@ mark {
   margin-bottom: 8px;
   margin-top: -8px;
   text-align: center;
+}
+
+/* === Header & Footer Images (Optional) === */
+.image-header img,
+.image-footer img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* === Responsive === */
@@ -169,4 +209,4 @@ mark {
     left: 10px;
     width: 77%;
   }
-} 
+}
