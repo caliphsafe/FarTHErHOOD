@@ -5,41 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CALIPH - FarTHErHOOD</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .audio-note {
-      margin-bottom: 40px;
-    }
-
-    .audio-controls button {
-      background: #facc15;
-      color: #000;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .description {
-      font-style: italic;
-      margin-top: -20px;
-      margin-bottom: 40px;
-      color: #ccc;
-    }
-
-    .image-header img,
-    .image-footer img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Header image -->
-  <div class="image-header">
-    <img src="header_cropped.png" alt="Header" />
+  <!-- Top Bar Header -->
+  <div class="top-bar">
+    <a href="#" class="top-icon left"><img src="back.png" alt="Back" /></a>
+    <div class="top-icons right">
+      <a href="#" class="top-icon"><img src="share.png" alt="Share" /></a>
+      <a href="#" class="top-icon"><img src="more.png" alt="More" /></a>
+    </div>
   </div>
 
   <div class="container">
@@ -53,12 +28,15 @@
     </main>
   </div>
 
-  <!-- Footer image -->
-  <div class="image-footer">
-    <img src="footer_cropped.png" alt="Footer" />
+  <!-- Bottom Bar Footer -->
+  <div class="bottom-bar">
+    <a href="#" class="bottom-icon"><img src="sub.png" alt="Subscribe" /></a>
+    <a href="#" class="bottom-icon"><img src="buy.png" alt="Buy" /></a>
+    <a href="https://your-merch-link.com" class="bottom-icon"><img src="draw.png" alt="Merch" /></a>
+    <a href="#" class="bottom-icon"><img src="note.png" alt="Add Note" /></a>
   </div>
 
-  <!-- Shared audio player -->
+  <!-- Shared Audio Player -->
   <audio id="sharedAudio"></audio>
 
   <script>
@@ -78,28 +56,28 @@
         date: "February 28, 2025 at 12:45 AM",
         file: "audio/eaterjames.mp3",
         transcript: "All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...",
-        description: "A song about secret black love that leads to a bad relationship, failed coparenting \"nigga I’m pregnant and it’s your kid\" What?? I already got a kid!”"
+        description: "A song about secret black love that leads to a bad relationship..."
       },
       {
         title: "CALIPH – BLUE CORNER",
         date: "February 13, 2025 at 5:03 PM",
         file: "audio/bluecorner.mp3",
         transcript: "The streets talking I could care less where I'm from we find peace in comparing nike air...",
-        description: "A song about a tragedy as a result of failed co parenting within the black community. Fathers a drug dealer, mothers a stripper"
+        description: "A song about a tragedy as a result of failed co parenting."
       },
       {
         title: "CALIPH – OBESERVATIONS / A DOLLAR AND A DAD",
         date: "February 28, 2025 at 12:55 AM",
         file: "audio/dollardad.mp3",
-        transcript: "Conversations switchin up, niggas always act weird when its time to give it up, give it up, have a....",
-        description: "Overall review of family dynamic in the hood / crackhead dad encounters his son and opens up about choosing the pipe over him."
+        transcript: "Conversations switchin up, niggas always act weird when its time to give it up...",
+        description: "Crackhead dad encounters his son and opens up."
       },
       {
         title: "CALIPH – SEEDS",
         date: "February 28, 2025 at 12:43 AM",
         file: "audio/seeds.mp3",
-        transcript: "The world getting colder than ever, its getting harder to hold the dinero, I turn robert to ho...",
-        description: "Outro about me wanting kids but being afraid to do it with the wrong woman."
+        transcript: "The world getting colder than ever, its getting harder to hold the dinero...",
+        description: "Outro about wanting kids but with fear of doing it with the wrong woman."
       }
     ];
 
@@ -113,34 +91,40 @@
           <h2>${track.title}</h2>
           <p class="meta">${track.date} · Audio · 2m</p>
           <div class="audio-controls">
-            <button onclick="playTrack(${i})">▶ Play</button>
+            <button onclick="togglePlay(${i})" id="btn-${i}">▶ Play</button>
           </div>
-          <p class="transcript">
-            Transcript<br />
-            ${track.transcript}
-          </p>
+          <p class="transcript">Transcript<br />${track.transcript}</p>
         </section>
         <p class="description">${track.description}</p>`;
         audioWrapper.innerHTML += html;
       });
     }
 
-    function playTrack(index) {
-      if (index < 0 || index >= tracks.length) return;
-      const src = tracks[index].file;
-      sharedAudio.src = src;
+    function togglePlay(index) {
+      const isSameTrack = currentIndex === index;
+      const btn = document.getElementById(`btn-${index}`);
+
+      if (isSameTrack && !sharedAudio.paused) {
+        sharedAudio.pause();
+        btn.innerText = "▶ Play";
+        return;
+      }
+
+      const oldBtn = document.getElementById(`btn-${currentIndex}`);
+      if (oldBtn) oldBtn.innerText = "▶ Play";
+
+      sharedAudio.src = tracks[index].file;
       sharedAudio.play();
+      btn.innerText = "⏸ Pause";
       currentIndex = index;
     }
 
     sharedAudio.addEventListener("ended", () => {
-      if (currentIndex + 1 < tracks.length) {
-        playTrack(currentIndex + 1);
-      }
+      const btn = document.getElementById(`btn-${currentIndex}`);
+      if (btn) btn.innerText = "▶ Play";
     });
 
     renderTracks();
   </script>
-
 </body>
 </html>
