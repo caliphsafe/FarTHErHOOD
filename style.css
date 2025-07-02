@@ -1,4 +1,4 @@
-/* ===== Base ===== */
+/* === Reset === */
 body {
   margin: 0;
   padding: 0;
@@ -12,38 +12,10 @@ body {
   padding: 16px;
   max-width: 600px;
   margin: 0 auto;
-  padding-bottom: 100px;
+  padding-bottom: 160px;
   padding-top: 80px;
 }
 
-/* ===== Header and Footer Images ===== */
-.image-header img,
-.image-footer img {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  display: block;
-}
-
-.image-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.image-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* ===== Page Title and Paragraphs ===== */
 h1 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -63,7 +35,6 @@ mark {
   border-radius: 3px;
 }
 
-/* ===== Audio Cards ===== */
 .audio-note {
   background-color: #1a1a1a;
   padding: 16px;
@@ -82,25 +53,6 @@ mark {
   margin-bottom: 10px;
 }
 
-button {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 12px;
-}
-
-button:hover {
-  background-color: #555;
-}
-
-audio {
-  width: 100%;
-  margin-bottom: 12px;
-}
-
 .transcript {
   font-size: 0.9rem;
   color: #ccc;
@@ -108,15 +60,57 @@ audio {
   padding-top: 10px;
 }
 
-/* ===== Responsive ===== */
+.audio-controls button {
+  background: #facc15;
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+/* === Header & Footer Bars === */
+.top-bar,
+.bottom-bar {
+  position: fixed;
+  background-color: #000;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 999;
+}
+
+.top-bar {
+  top: 0;
+  justify-content: space-between;
+}
+
+.bottom-bar {
+  bottom: 0;
+  justify-content: space-around;
+}
+
+/* === Icons === */
+.top-icon img {
+  height: 28px;
+}
+
+.bottom-icon img {
+  height: 36px;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .container {
-    padding: 16px;
     padding-top: 80px;
-    padding-bottom: 100px;
+    padding-bottom: 160px;
   }
 
-  button {
+  .audio-controls button {
     width: 100%;
   }
 }
