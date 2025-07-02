@@ -117,8 +117,8 @@ mark {
 
 .note-meta {
   font-size: 0.85rem;
-  color: #aaa;
+  color: #ccc;
   margin-bottom: 8px;
   margin-top: -8px;
-  text-align: left;
+  text-align: center;
 }
