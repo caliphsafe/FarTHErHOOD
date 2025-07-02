@@ -80,7 +80,7 @@ mark {
   height: 60px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 0px;
   z-index: 999;
 }
 
@@ -96,11 +96,11 @@ mark {
 
 /* === Icons === */
 .top-icon img {
-  height: 28px;
+  height: 40px;
 }
 
 .bottom-icon img {
-  height: 36px;
+  height: 40px;
 }
 
 /* Responsive */
