@@ -1,4 +1,4 @@
-/* === Reset === */
+/* === Reset & Base === */
 body {
   margin: 0;
   padding: 0;
@@ -80,7 +80,7 @@ mark {
   height: 50px;
   display: flex;
   align-items: center;
-  padding: 0 0px;
+  padding: 0 10px;
   z-index: 999;
 }
 
@@ -95,24 +95,54 @@ mark {
 }
 
 /* === Icons === */
-.top-icon img {
-  height: 40px;
+.top-icon img, .bottom-icon img {
+  height: 32px;
 }
 
-.bottom-icon img {
-  height: 40px;
+/* === Floating Note Form === */
+.note-form {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #111;
+  padding: 16px;
+  border-radius: 10px;
+  width: 280px;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  display: none;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .container {
-    padding-top: 80px;
-    padding-bottom: 160px;
-  }
+.note-form input,
+.note-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.9rem;
+}
 
-  .audio-controls button {
-    width: 100%;
-  }
+.note-form button {
+  background: #facc15;
+  color: #000;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.message {
+  background: #1a1a1a;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.messages-section {
+  margin-top: 40px;
 }
 
 .note-meta {
@@ -122,3 +152,20 @@ mark {
   margin-top: -8px;
   text-align: center;
 }
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .container {
+    padding-top: 80px;
+    padding-bottom: 160px;
+  }
+
+  .audio-controls button {
+    width: 100%;
+  }
+
+  .note-form {
+    right: 10px;
+    width: 90%;
+  }
+} 
