@@ -8,46 +8,32 @@
 </head>
 <body>
 
-  <!-- Image Header -->
-  <div class="image-header">
-    <img src="header_cropped.png" alt="Header" />
+  <!-- Top Bar Header -->
+  <div class="top-bar">
+    <a href="#" class="top-icon left"><img src="back.png" alt="Back" /></a>
+    <div class="top-icons right">
+      <a href="#" class="top-icon"><img src="share.png" alt="Share" /></a>
+      <a href="#" class="top-icon"><img src="more.png" alt="More" /></a>
+    </div>
   </div>
 
   <div class="container">
     <main><br/>
-      <p class="meta">May 14, 2025 at 8:49 PM — Shared</p>
-      <h1>CALIPH - <mark>FarTHErHOOD</mark></h1>
+      <h1>CALIPH - FarTHErHOOD</h1>
       <p class="intro">
         A collection of stories, some connected others not about <mark>father</mark>hood and coparenting in the black community and how the lack there of affects everyone different.
       </p>
 
       <div class="audio-wrapper" id="audioWrapper"></div>
-
-      <div class="messages-section">
-        <h2>Notes from Listeners</h2>
-        <div id="publicNotes">Loading messages...</div>
-      </div>
     </main>
   </div>
 
-  <!-- Image Footer -->
-  <div class="image-footer">
-    <img src="footer_cropped.png" alt="Footer" />
-  </div>
-
-  <!-- Floating Note Form -->
-  <div class="note-form" id="noteForm">
-    <input type="text" id="noteName" placeholder="Your name..." />
-    <textarea id="noteMessage" placeholder="Your message to a father or about this project..."></textarea>
-    <button onclick="submitNote()">Submit</button>
-  </div>
-
-  <!-- Bottom Fixed Bar -->
+  <!-- Bottom Bar Footer -->
   <div class="bottom-bar">
     <a href="#" class="bottom-icon"><img src="sub.png" alt="Subscribe" /></a>
     <a href="#" class="bottom-icon"><img src="buy.png" alt="Buy" /></a>
     <a href="https://your-merch-link.com" class="bottom-icon"><img src="draw.png" alt="Merch" /></a>
-    <a href="#" class="bottom-icon" onclick="toggleNoteForm()"><img src="note.png" alt="Add Note" /></a>
+    <a href="#" class="bottom-icon"><img src="note.png" alt="Add Note" /></a>
   </div>
 
   <!-- Shared Audio Player -->
@@ -70,7 +56,7 @@
         date: "February 28, 2025 at 12:45 AM",
         file: "audio/eaterjames.mp3",
         transcript: "All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...",
-        description: "A song about secret black love that leads to a bad relationship, failed coparenting"
+        description: "A song about secret black love that leads to a bad relationship..."
       },
       {
         title: "CALIPH – BLUE CORNER",
@@ -101,16 +87,15 @@
       audioWrapper.innerHTML = "";
       tracks.forEach((track, i) => {
         const html = `
-          <section class="audio-note">
-            <h2>${track.title}</h2>
-            <p class="meta">${track.date} · Audio · 2m</p>
-            <div class="audio-controls">
-              <button onclick="togglePlay(${i})" id="btn-${i}">▶ Play</button>
-            </div>
-            <p class="transcript">Transcript<br />${track.transcript}</p>
-          </section>
-          <p class="description">${track.description}</p>
-        `;
+        <section class="audio-note">
+          <h2>${track.title}</h2>
+          <p class="meta">${track.date} · Audio · 2m</p>
+          <div class="audio-controls">
+            <button onclick="togglePlay(${i})" id="btn-${i}">▶ Play</button>
+          </div>
+          <p class="transcript">Transcript<br />${track.transcript}</p>
+        </section>
+        <p class="description">${track.description}</p>`;
         audioWrapper.innerHTML += html;
       });
     }
@@ -139,59 +124,7 @@
       if (btn) btn.innerText = "▶ Play";
     });
 
-    function toggleNoteForm() {
-      const form = document.getElementById("noteForm");
-      form.style.display = form.style.display === "none" ? "block" : "none";
-    }
-
-    function submitNote() {
-      const name = document.getElementById("noteName").value.trim();
-      const message = document.getElementById("noteMessage").value.trim();
-
-      if (!name || !message) {
-        alert("Please fill out both fields.");
-        return;
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbz7M4hPfm3uAS9GKs0mRbkewBO-3D7aU8fpjRCJA02Jipl1NeEe5h_zzMvicoqTRKXG/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, message })
-      })
-        .then(res => res.json())
-        .then(response => {
-          if (response.result === "success") {
-            document.getElementById("noteName").value = "";
-            document.getElementById("noteMessage").value = "";
-            toggleNoteForm();
-            loadNotes();
-          } else {
-            throw new Error("Failed to submit note");
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert("Something went wrong. Try again.");
-        });
-    }
-
-    function loadNotes() {
-      fetch("https://opensheet.elk.sh/1tKcRtbF7vJEvutjHAUvU72gVYwEVEpIDWfN3Vab7efE/Sheet1")
-        .then(res => res.json())
-        .then(data => {
-          const container = document.getElementById("publicNotes");
-          container.innerHTML = data.reverse().map(entry => `
-            <div class="message">
-              <p><strong>${entry.Name}</strong></p>
-              <p>${entry.Message}</p>
-            </div>
-          `).join('');
-        });
-    }
-
     renderTracks();
-    loadNotes();
   </script>
-
 </body>
 </html>
