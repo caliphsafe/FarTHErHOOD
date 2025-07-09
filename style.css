@@ -1,4 +1,4 @@
-/* === Reset & Base === */
+/* === Reset === */
 body {
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@ body {
   max-width: 600px;
   margin: 0 auto;
   padding-bottom: 160px;
-  padding-top: 20px;
+  padding-top: 80px;
 }
 
 h1 {
@@ -26,12 +26,6 @@ h1 {
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 20px;
-}
-
-.description {
-  font-style: italic;
-  color: #bbb;
-  margin-top: -12px;
 }
 
 mark {
@@ -64,7 +58,6 @@ mark {
   color: #ccc;
   border-top: 1px solid #333;
   padding-top: 10px;
-  line-height: 1.4;
 }
 
 .audio-controls button {
@@ -76,12 +69,6 @@ mark {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 12px;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-}
-
-.audio-controls button:hover {
-  background: #ffe58f;
 }
 
 /* === Header & Footer Bars === */
@@ -90,10 +77,10 @@ mark {
   position: fixed;
   background-color: #000;
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 20px;
   z-index: 999;
 }
 
@@ -108,92 +95,15 @@ mark {
 }
 
 /* === Icons === */
-.top-icon img, .bottom-icon img {
-  height: 32px;
+.top-icon img {
+  height: 28px;
 }
 
-/* === Floating Note Form === */
-.note-form {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  background: #111;
-  padding: 16px;
-  border-radius: 10px;
-  width: 280px;
-  z-index: 9999;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  display: none;
+.bottom-icon img {
+  height: 36px;
 }
 
-.note-form input,
-.note-form textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  font-size: 0.9rem;
-}
-
-.note-form textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.note-form button {
-  background: #facc15;
-  color: #000;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  font-size: 0.95rem;
-}
-
-.note-form button:hover {
-  background: #ffe58f;
-}
-
-.message {
-  background: #1a1a1a;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.message p {
-  margin: 4px 0;
-  line-height: 1.4;
-}
-
-.message strong {
-  color: #facc15;
-}
-
-.messages-section {
-  margin-top: 40px;
-}
-
-.note-meta {
-  font-size: 0.85rem;
-  color: #ccc;
-  margin-bottom: 8px;
-  margin-top: -8px;
-  text-align: center;
-}
-
-/* === Header & Footer Images (Optional) === */
-.image-header img,
-.image-footer img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* === Responsive === */
+/* Responsive */
 @media (max-width: 600px) {
   .container {
     padding-top: 80px;
@@ -202,11 +112,5 @@ mark {
 
   .audio-controls button {
     width: 100%;
-  }
-
-  .note-form {
-    right: 10px;
-    left: 10px;
-    width: 77%;
   }
 }
