@@ -10,21 +10,38 @@
 
   <!-- Top chrome (iOS Notes vibe) -->
   <div class="top-chrome">
-    <!-- Back button (left) -->
-    <a href="#" class="nav-round" aria-label="Back">
-      <img src="back.png" alt="Back" />
+  <!-- Back button (left) -->
+  <a href="#" class="nav-round" aria-label="Back">
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+      <path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <!-- Right capsule (collab/check + share + more) -->
+  <div class="nav-capsule" role="group" aria-label="Actions">
+    <a href="#" class="nav-capsule-btn" aria-label="Collaborate / Check">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M16 11a4 4 0 1 0-8 0" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M4.5 20c1.2-3 3.8-5 7.5-5s6.3 2 7.5 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M18.2 6.6l1.1 1.1 2.2-2.2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
 
-    <!-- Right capsule (share + more) -->
-    <div class="nav-capsule" role="group" aria-label="Actions">
-      <a href="#" class="nav-capsule-btn" aria-label="Share">
-        <img src="share.png" alt="Share" />
-      </a>
-      <a href="#" class="nav-capsule-btn" aria-label="More">
-        <img src="more.png" alt="More" />
-      </a>
-    </div>
+    <a href="#" class="nav-capsule-btn" aria-label="Share">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M12 3v10" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M8.5 6.5L12 3l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+      </svg>
+    </a>
+
+    <a href="#" class="nav-capsule-btn" aria-label="More">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M6.5 12h.01M12 12h.01M17.5 12h.01" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+    </a>
   </div>
+</div>
 
   <div class="container">
     <main>
@@ -50,22 +67,41 @@
 
   <!-- Bottom chrome (floating pill + compose) -->
   <div class="bottom-chrome" aria-label="Bottom actions">
-    <div class="bottom-pill">
-      <a href="#" class="bottom-icon" aria-label="Subscribe">
-        <img src="sub.png" alt="Subscribe" />
-      </a>
-      <a href="#" class="bottom-icon" aria-label="Buy / Download">
-        <img src="buy.png" alt="Buy / Download" />
-      </a>
-      <a href="https://your-merch-link.com" class="bottom-icon" aria-label="Merch">
-        <img src="draw.png" alt="Merch" />
-      </a>
-    </div>
+  <div class="bottom-pill">
+    <!-- Sub (list/check) -->
+    <a href="#" class="bottom-icon" aria-label="Subscribe / List">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M6 7h12M6 12h12M6 17h12" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M4.5 7l.8.8 1.7-1.7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
 
-    <a href="#" class="compose-fab" aria-label="Add note">
-      <img src="note.png" alt="Add Note" />
+    <!-- Buy/Download -->
+    <a href="#" class="bottom-icon" aria-label="Buy / Download">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M12 3v10" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M8.5 10.5L12 13.9l3.5-3.4" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 16.5v2A2.5 2.5 0 0 0 8.5 21h7A2.5 2.5 0 0 0 18 18.5v-2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+      </svg>
+    </a>
+
+    <!-- Merch (pen/draw) -->
+    <a href="https://your-merch-link.com" class="bottom-icon" aria-label="Merch">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+        <path d="M4 20l4.5-1 10-10a2 2 0 0 0 0-2.8l-.7-.7a2 2 0 0 0-2.8 0l-10 10L4 20z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
+        <path d="M13 6l5 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+      </svg>
     </a>
   </div>
+
+  <!-- Floating compose -->
+  <a href="#" class="compose-fab" aria-label="Add note" onclick="toggleNoteForm(); return false;">
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="ico">
+      <path d="M4 20l4.5-1 10-10a2 2 0 0 0 0-2.8l-.7-.7a2 2 0 0 0-2.8 0l-10 10L4 20z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
+      <path d="M14 5l5 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+    </svg>
+  </a>
+</div>
 
   <!-- Shared Audio Player -->
   <audio id="sharedAudio" preload="metadata"></audio>
