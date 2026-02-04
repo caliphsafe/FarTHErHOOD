@@ -68,7 +68,7 @@
   </div>
 
   <!-- Shared Audio Player -->
-  <audio id="sharedAudio"></audio>
+  <audio id="sharedAudio" preload="metadata"></audio>
 
   <!-- Transcript Modal (iOS-style sheet) -->
   <div class="modal" id="transcriptModal" aria-hidden="true">
@@ -85,17 +85,16 @@
       <div class="sheet-title" id="sheetTitle">CALIPH - STORY TIME</div>
       <div class="sheet-meta" id="sheetMeta">2/28/25, 12:40 AM <span class="dot">•</span> 02:07</div>
 
-      <div class="sheet-body" id="sheetBody">
-        <!-- transcript injected -->
-      </div>
+      <div class="sheet-body" id="sheetBody"></div>
 
-      <!-- Decorative bottom controls (matches vibe; not wired to audio) -->
+      <!-- Real audio controls -->
       <div class="sheet-player">
         <div class="sheet-timer" id="sheetTimer">00:00.00</div>
+
         <div class="sheet-controls">
-          <button class="sheet-skip" aria-label="Back 15">⟲15</button>
-          <button class="sheet-play" aria-label="Play">▶</button>
-          <button class="sheet-skip" aria-label="Forward 15">15⟳</button>
+          <button class="sheet-skip" id="btnBack15" aria-label="Back 15 seconds">⟲15</button>
+          <button class="sheet-play" id="btnModalPlay" aria-label="Play/Pause">▶</button>
+          <button class="sheet-skip" id="btnFwd15" aria-label="Forward 15 seconds">15⟳</button>
         </div>
       </div>
     </div>
@@ -112,6 +111,11 @@
     const sheetTitle = document.getElementById("sheetTitle");
     const sheetMeta  = document.getElementById("sheetMeta");
     const sheetBody  = document.getElementById("sheetBody");
+    const sheetTimer = document.getElementById("sheetTimer");
+
+    const btnModalPlay = document.getElementById("btnModalPlay");
+    const btnBack15 = document.getElementById("btnBack15");
+    const btnFwd15  = document.getElementById("btnFwd15");
 
     const tracks = [
       {
@@ -174,12 +178,20 @@ it's getting harder to hold the dinero…`,
       }
     ];
 
-    let currentIndex = -1;
+    let currentIndex = -1;     // which track is loaded/active
+    let modalIndex = -1;       // which track modal is showing
+    let rafId = null;
 
     function renderTracks() {
       audioWrapper.innerHTML = "";
 
       tracks.forEach((track, i) => {
+        const preview = escapeHtml(track.transcript)
+          .split('\n')
+          .filter(Boolean)
+          .slice(0,2)
+          .join(' ');
+
         const html = `
           <section class="audio-card" data-index="${i}">
             <div class="card-head">
@@ -201,41 +213,54 @@ it's getting harder to hold the dinero…`,
               onclick="openTranscript(${i})"
               onkeydown="if(event.key==='Enter' || event.key===' ') openTranscript(${i});">
               <div class="t-label">Transcript</div>
-              <div class="t-preview">${escapeHtml(track.transcript).split('\n').slice(0,2).join(' ')}</div>
+              <div class="t-preview">${preview}</div>
             </div>
           </section>
 
           <p class="description">${track.description}</p>
         `;
+
         audioWrapper.insertAdjacentHTML("beforeend", html);
       });
     }
 
-    function togglePlay(index) {
-      const same = currentIndex === index;
+    function ensureTrackLoaded(index) {
+      if (index < 0 || index >= tracks.length) return false;
 
-      // If tapping the same track while playing -> pause
-      if (same && !sharedAudio.paused) {
+      // If a different track is requested, load it
+      if (currentIndex !== index) {
+        // reset previous card button
+        if (currentIndex !== -1) setCardButtonState(currentIndex, false);
+
+        currentIndex = index;
+        sharedAudio.src = tracks[index].file;
+      }
+      return true;
+    }
+
+    function togglePlay(index) {
+      if (!ensureTrackLoaded(index)) return;
+
+      const same = currentIndex === index;
+      const isPlaying = !sharedAudio.paused && same;
+
+      if (isPlaying) {
         sharedAudio.pause();
-        setButtonState(index, false);
+        setCardButtonState(index, false);
+        syncModalPlayButton();
         return;
       }
 
-      // Reset old button state
-      if (currentIndex !== -1) setButtonState(currentIndex, false);
-
-      // Play new
-      currentIndex = index;
-      sharedAudio.src = tracks[index].file;
       sharedAudio.play().then(() => {
-        setButtonState(index, true);
+        setCardButtonState(index, true);
+        syncModalPlayButton();
       }).catch(() => {
-        // iOS can block autoplay if not initiated by a user gesture — but this is initiated by click
-        setButtonState(index, false);
+        setCardButtonState(index, false);
+        syncModalPlayButton();
       });
     }
 
-    function setButtonState(index, isPlaying) {
+    function setCardButtonState(index, isPlaying) {
       const icon = document.getElementById(`icon-${index}`);
       const text = document.getElementById(`text-${index}`);
       const btn  = document.getElementById(`btn-${index}`);
@@ -252,30 +277,29 @@ it's getting harder to hold the dinero…`,
       }
     }
 
-    sharedAudio.addEventListener("ended", () => {
-      if (currentIndex !== -1) setButtonState(currentIndex, false);
-
-      // Auto-advance to next track like Notes
-      if (currentIndex + 1 < tracks.length) {
-        togglePlay(currentIndex + 1);
-      }
-    });
-
     function openTranscript(index) {
+      modalIndex = index;
+
       const t = tracks[index];
       sheetTitle.textContent = t.title;
-      sheetMeta.innerHTML = `${formatShortDate(t.date)} <span class="dot">•</span> ${t.duration}`;
+      sheetMeta.innerHTML = `${formatModalDate(t.date)} <span class="dot">•</span> ${t.duration}`;
       sheetBody.textContent = t.transcript;
 
+      // Show modal
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-lock");
+
+      // Sync play button + timer immediately
+      syncModalPlayButton();
+      startTimerLoop();
     }
 
     function closeTranscript() {
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-lock");
+      stopTimerLoop();
     }
 
     modalBackdrop.addEventListener("click", closeTranscript);
@@ -285,6 +309,119 @@ it's getting harder to hold the dinero…`,
       if (e.key === "Escape" && modal.classList.contains("open")) closeTranscript();
     });
 
+    // ===== Modal control wiring (REAL AUDIO) =====
+    btnModalPlay.addEventListener("click", () => {
+      if (modalIndex === -1) return;
+
+      // Ensure modal track is loaded; do NOT auto-play on open, only when tapped
+      ensureTrackLoaded(modalIndex);
+
+      if (!sharedAudio.paused) {
+        sharedAudio.pause();
+        setCardButtonState(currentIndex, false);
+      } else {
+        sharedAudio.play().then(() => {
+          setCardButtonState(currentIndex, true);
+        }).catch(() => {
+          // ignore
+        });
+      }
+
+      syncModalPlayButton();
+    });
+
+    btnBack15.addEventListener("click", () => seekBy(-15));
+    btnFwd15.addEventListener("click", () => seekBy(15));
+
+    function seekBy(seconds) {
+      if (!sharedAudio.src) return;
+      const t = sharedAudio.currentTime || 0;
+      const next = Math.max(0, t + seconds);
+      sharedAudio.currentTime = next;
+      // update immediately
+      updateTimer();
+    }
+
+    function syncModalPlayButton() {
+      // Only show pause if modal is open AND the modal track is the one playing
+      const modalOpen = modal.classList.contains("open");
+      if (!modalOpen) return;
+
+      const isModalTrackActive = (modalIndex !== -1 && currentIndex === modalIndex);
+      const playing = isModalTrackActive && !sharedAudio.paused;
+
+      btnModalPlay.textContent = playing ? "⏸" : "▶";
+    }
+
+    // Keep modal button + card buttons in sync with native audio events
+    sharedAudio.addEventListener("play", () => {
+      if (currentIndex !== -1) setCardButtonState(currentIndex, true);
+      syncModalPlayButton();
+    });
+
+    sharedAudio.addEventListener("pause", () => {
+      if (currentIndex !== -1) setCardButtonState(currentIndex, false);
+      syncModalPlayButton();
+    });
+
+    sharedAudio.addEventListener("ended", () => {
+      if (currentIndex !== -1) setCardButtonState(currentIndex, false);
+      syncModalPlayButton();
+      updateTimer();
+
+      // Auto-advance to next track like Notes (optional)
+      if (currentIndex + 1 < tracks.length) {
+        togglePlay(currentIndex + 1);
+
+        // If modal is open, update modal content to follow the new track
+        if (modal.classList.contains("open")) {
+          openTranscript(currentIndex);
+        }
+      }
+    });
+
+    sharedAudio.addEventListener("timeupdate", () => {
+      if (modal.classList.contains("open")) updateTimer();
+    });
+
+    // ===== Timer loop (smooth) =====
+    function startTimerLoop() {
+      stopTimerLoop();
+      const loop = () => {
+        if (modal.classList.contains("open")) {
+          updateTimer();
+          rafId = requestAnimationFrame(loop);
+        }
+      };
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function stopTimerLoop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    function updateTimer() {
+      // Only show running time if modal track is active; else show 00:00.00
+      const isModalTrackActive = (modalIndex !== -1 && currentIndex === modalIndex && sharedAudio.src);
+      const t = isModalTrackActive ? (sharedAudio.currentTime || 0) : 0;
+      sheetTimer.textContent = formatTimer(t);
+    }
+
+    function formatTimer(seconds) {
+      const s = Math.max(0, seconds);
+      const mm = Math.floor(s / 60);
+      const ss = Math.floor(s % 60);
+      const cs = Math.floor((s - Math.floor(s)) * 100); // centiseconds
+
+      const mmStr = String(mm).padStart(2, "0");
+      const ssStr = String(ss).padStart(2, "0");
+      const csStr = String(cs).padStart(2, "0");
+
+      return `${mmStr}:${ssStr}.${csStr}`;
+    }
+
+    // ===== Utilities =====
     function escapeHtml(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -294,19 +431,20 @@ it's getting harder to hold the dinero…`,
         .replaceAll("'", "&#039;");
     }
 
-    function formatShortDate(dateStr) {
-      // You’re storing a readable string; we’ll keep it, just shorten the prefix visually.
-      // Example: "Feb 28, 2025 at 12:40 AM" -> "2/28/25, 12:40 AM"
-      try {
-        const parts = dateStr.replace(" at ", ", ").replace(",", "");
-        // If you want true parsing later, we can do it; this is good enough to match the screenshot vibe.
-        return dateStr.replace("Feb ", "2/").replace(" 2025", "/25").replace(" at ", ", ");
-      } catch {
-        return dateStr;
-      }
+    function formatModalDate(dateStr) {
+      // You can keep it simple (matches vibe)
+      // "Feb 28, 2025 at 12:40 AM" -> "2/28/25, 12:40 AM"
+      return dateStr
+        .replace("Jan ", "1/").replace("Feb ", "2/").replace("Mar ", "3/")
+        .replace("Apr ", "4/").replace("May ", "5/").replace("Jun ", "6/")
+        .replace("Jul ", "7/").replace("Aug ", "8/").replace("Sep ", "9/")
+        .replace("Oct ", "10/").replace("Nov ", "11/").replace("Dec ", "12/")
+        .replace(", 2025", "/25")
+        .replace(" at ", ", ");
     }
 
     renderTracks();
+    updateTimer();
   </script>
 </body>
 </html>
