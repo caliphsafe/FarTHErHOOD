@@ -10,63 +10,65 @@
 
   <!-- Top chrome (iOS Notes vibe) -->
   <div class="top-chrome">
-    <!-- Back (white chevron, iOS-ish) -->
-    <a class="nav-round" href="#" aria-label="Back">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14.6 5.6L8.7 12l5.9 6.4"
-              fill="none" stroke="currentColor" stroke-width="2.6"
+    <!-- Back button (left) -->
+    <a href="#" class="nav-round" aria-label="Back">
+      <!-- iOS chevron.left -->
+      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14.7 5.6L8.8 12l5.9 6.4"
+              fill="none" stroke="currentColor" stroke-width="2.8"
               stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
 
-    <!-- Right capsule: collaborators (yellow) + share (white) + ellipsis (white) -->
+    <!-- Right capsule (collaborators yellow + share white + more white) -->
     <div class="nav-capsule" role="group" aria-label="Actions">
-      <!-- Collaborators (ONLY yellow) -->
-      <a class="nav-capsule-btn is-accent" href="#" aria-label="Collaborators">
-        <!-- person + check (SF-symbols-ish) -->
+      <!-- Collaborators (ONLY yellow icon) -->
+      <a href="#" class="nav-capsule-btn is-accent" aria-label="Collaborators">
+        <!-- person.badge.checkmark -->
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-          <!-- person -->
-          <path d="M10 11.2c2 0 3.6-1.7 3.6-3.8S12 3.6 10 3.6 6.4 5.3 6.4 7.4 8 11.2 10 11.2Z"
+          <!-- person head -->
+          <path d="M9.7 11.0c1.9 0 3.4-1.6 3.4-3.6S11.6 3.8 9.7 3.8 6.3 5.4 6.3 7.4 7.8 11.0 9.7 11.0Z"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4.9 20.2c.7-3.6 3-5.9 5.1-5.9s4.4 2.3 5.1 5.9"
+          <!-- person shoulders -->
+          <path d="M4.8 20.2c.7-3.4 2.9-5.6 4.9-5.6s4.2 2.2 4.9 5.6"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
 
           <!-- check circle -->
-          <path d="M17.3 19.3a3.8 3.8 0 1 0 0-7.6 3.8 3.8 0 0 0 0 7.6Z"
+          <path d="M17.2 19.3a3.8 3.8 0 1 0 0-7.6 3.8 3.8 0 0 0 0 7.6Z"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
           <!-- check -->
-          <path d="M15.9 15.7l1.1 1.1 2.6-2.6"
+          <path d="M15.7 15.8l1.1 1.1 2.6-2.6"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
 
-      <!-- Share (square + up arrow like Notes) -->
-      <a class="nav-capsule-btn" href="#" aria-label="Share">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+      <!-- Share (square.and.arrow.up) -->
+      <a href="#" class="nav-capsule-btn" aria-label="Share">
+        <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
           <!-- arrow up -->
-          <path d="M12 3.8v9.4"
-                fill="none" stroke="currentColor" stroke-width="2.3"
+          <path d="M12 4.0v9.0"
+                fill="none" stroke="currentColor" stroke-width="2.4"
                 stroke-linecap="round"/>
-          <path d="M8.8 7l3.2-3.2L15.2 7"
-                fill="none" stroke="currentColor" stroke-width="2.3"
+          <path d="M8.8 7.1L12 3.9l3.2 3.2"
+                fill="none" stroke="currentColor" stroke-width="2.4"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- box -->
-          <path d="M6.8 11.2v7c0 1.1.9 2 2 2h6.4c1.1 0 2-.9 2-2v-7"
-                fill="none" stroke="currentColor" stroke-width="2.1"
+          <!-- square -->
+          <path d="M6.8 11.3v6.7c0 1.2.9 2.1 2.1 2.1h6.2c1.2 0 2.1-.9 2.1-2.1v-6.7"
+                fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
 
-      <!-- Ellipsis (exact spacing vibe) -->
-      <a class="nav-capsule-btn" href="#" aria-label="More">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="6.7" cy="12" r="1.35" fill="currentColor"/>
+      <!-- More (ellipsis) -->
+      <a href="#" class="nav-capsule-btn" aria-label="More">
+        <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="6.8" cy="12" r="1.35" fill="currentColor"/>
           <circle cx="12" cy="12" r="1.35" fill="currentColor"/>
-          <circle cx="17.3" cy="12" r="1.35" fill="currentColor"/>
+          <circle cx="17.2" cy="12" r="1.35" fill="currentColor"/>
         </svg>
       </a>
     </div>
@@ -94,47 +96,39 @@
     </main>
   </div>
 
-  <!-- BOTTOM CHROME -->
-  <div class="bottom-chrome">
-    <div class="bottom-pill" role="group" aria-label="Tools">
-      <!-- Checklist (three lines + checks vibe) -->
-      <a class="bottom-icon" href="#" aria-label="Checklist">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6.4 7.3l1.1 1.1 2.2-2.3"
+  <!-- Bottom chrome (floating pill + compose) -->
+  <div class="bottom-chrome" aria-label="Bottom actions">
+    <div class="bottom-pill">
+      <!-- Subscribe (checklist-ish) -->
+      <a href="#" class="bottom-icon" aria-label="Subscribe">
+        <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.2 7.4l1.0 1.0 2.2-2.3"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11.2 8h7.2"
+          <path d="M11 8.0h7.2"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round"/>
-
-          <path d="M6.4 12l1.1 1.1 2.2-2.3"
+          <path d="M6.2 12.0l1.0 1.0 2.2-2.3"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11.2 12.7h7.2"
-                fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round"/>
-
-          <path d="M6.4 16.7l1.1 1.1 2.2-2.3"
-                fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11.2 17.4h7.2"
+          <path d="M11 12.6h7.2"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round"/>
         </svg>
       </a>
 
-      <!-- Paperclip (SF-ish clip) -->
-      <a class="bottom-icon" href="#" aria-label="Attach">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9.2 7.6l7.1 7.1a3.4 3.4 0 1 1-4.8 4.8L6.7 14.7a4.6 4.6 0 0 1 6.5-6.5l6 6"
+      <!-- Buy/Download (paperclip) -->
+      <a href="#" class="bottom-icon" aria-label="Buy / Download">
+        <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9.3 7.7l7.0 7.0a3.4 3.4 0 1 1-4.8 4.8l-4.7-4.7a4.6 4.6 0 0 1 6.5-6.5l6.0 6.0"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
 
-      <!-- Markup pen tip (Notes-ish) -->
-      <a class="bottom-icon" href="#" aria-label="Markup">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+      <!-- Merch (markup pen) -->
+      <a href="https://your-merch-link.com" class="bottom-icon" aria-label="Merch">
+        <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4.8 19.2l4.9-1.2L19 8.7a2.4 2.4 0 0 0 0-3.4l-.3-.3a2.4 2.4 0 0 0-3.4 0L5.9 14.4 4.8 19.2Z"
                 fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
@@ -145,15 +139,14 @@
       </a>
     </div>
 
-    <!-- Compose (square + pencil vibe like Notes new note) -->
-    <a class="compose-fab" href="#" aria-label="New Note">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- square -->
-        <path d="M7.2 20.2h9.6c1.2 0 2.2-1 2.2-2.2V8.6c0-1.2-1-2.2-2.2-2.2H7.2C6 6.4 5 7.4 5 8.6V18c0 1.2 1 2.2 2.2 2.2Z"
+    <!-- Compose -->
+    <a href="#" class="compose-fab" aria-label="Add note">
+      <!-- square.and.pencil -->
+      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.3 20.1h9.4c1.2 0 2.2-1 2.2-2.2V8.7c0-1.2-1-2.2-2.2-2.2H7.3C6.1 6.5 5.1 7.5 5.1 8.7v9.2c0 1.2 1 2.2 2.2 2.2Z"
               fill="none" stroke="currentColor" stroke-width="2.1"
               stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- pencil -->
-        <path d="M10.2 15.9l5.6-5.6a1.7 1.7 0 0 0 0-2.4l-.1-.1a1.7 1.7 0 0 0-2.4 0l-5.6 5.6-.6 3.1 3.1-.6Z"
+        <path d="M10.1 15.9l5.8-5.8a1.7 1.7 0 0 0 0-2.4l-.1-.1a1.7 1.7 0 0 0-2.4 0l-5.8 5.8-.6 3.1 3.1-.6Z"
               fill="none" stroke="currentColor" stroke-width="2.1"
               stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -351,9 +344,9 @@ it's getting harder to hold the dinero…`,
     }
 
     function setCardButtonState(index, isPlaying) {
-      const icon = document.getElementById(\`icon-\${index}\`);
-      const text = document.getElementById(\`text-\${index}\`);
-      const btn  = document.getElementById(\`btn-\${index}\`);
+      const icon = document.getElementById(`icon-${index}`);
+      const text = document.getElementById(`text-${index}`);
+      const btn  = document.getElementById(`btn-${index}`);
       if (!icon || !text || !btn) return;
 
       if (isPlaying) {
@@ -372,7 +365,7 @@ it's getting harder to hold the dinero…`,
 
       const t = tracks[index];
       sheetTitle.textContent = t.title;
-      sheetMeta.innerHTML = \`\${formatModalDate(t.date)} <span class="dot">•</span> \${t.duration}\`;
+      sheetMeta.innerHTML = `${formatModalDate(t.date)} <span class="dot">•</span> ${t.duration}`;
       sheetBody.textContent = t.transcript;
 
       modal.classList.add("open");
@@ -451,7 +444,9 @@ it's getting harder to hold the dinero…`,
 
       if (currentIndex + 1 < tracks.length) {
         togglePlay(currentIndex + 1);
-        if (modal.classList.contains("open")) openTranscript(currentIndex);
+        if (modal.classList.contains("open")) {
+          openTranscript(currentIndex);
+        }
       }
     });
 
@@ -487,7 +482,7 @@ it's getting harder to hold the dinero…`,
       const ss = Math.floor(s % 60);
       const cs = Math.floor((s - Math.floor(s)) * 100);
 
-      return \`\${String(mm).padStart(2,"0")}:\${String(ss).padStart(2,"0")}.\${String(cs).padStart(2,"0")}\`;
+      return `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
     }
 
     function escapeHtml(str) {
@@ -513,4 +508,4 @@ it's getting harder to hold the dinero…`,
     updateTimer();
   </script>
 </body>
-</html> 
+</html>
