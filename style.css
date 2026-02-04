@@ -1,5 +1,5 @@
 :root{
-  --bg: #09090a;
+  --bg: #000000; /* solid black */
   --text: rgba(255,255,255,0.92);
   --muted: rgba(255,255,255,0.62);
   --faint: rgba(255,255,255,0.40);
@@ -20,12 +20,12 @@
   --topPad: calc(env(safe-area-inset-top) + 70px);
   --botPad: calc(env(safe-area-inset-bottom) + 110px);
 
-  /* iOS glass tuning */
-  --glass: rgba(34,34,36,0.46);
-  --glass2: rgba(24,24,26,0.38);
-  --glass-stroke: rgba(255,255,255,0.10);
+  /* icon system */
+  --icon: rgba(255,255,255,0.92);
+  --icon-dim: rgba(255,255,255,0.84);
+  --glass: rgba(24,24,26,0.58);
+  --glass-stroke: rgba(255,255,255,0.12);
   --glass-stroke2: rgba(255,255,255,0.08);
-  --glass-shadow: 0 18px 45px rgba(0,0,0,0.55);
 }
 
 *{ box-sizing: border-box; }
@@ -36,8 +36,7 @@ body{
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  /* solid black background */
-  background: #000;
+  background: var(--bg); /* ✅ remove gradients/looping background */
   overflow-x: hidden;
 }
 
@@ -84,7 +83,7 @@ mark{
 }
 
 /* ======= Top iOS-like chrome ======= */
-/* CHANGE: no background “bar”, only floating glass buttons */
+/* ✅ No bar background — only pills are glass */
 .top-chrome{
   position: fixed;
   top: 0;
@@ -99,7 +98,7 @@ mark{
   padding-right: 14px;
   z-index: 1000;
   pointer-events: none;
-  background: transparent; /* IMPORTANT */
+  background: transparent; /* ✅ */
 }
 
 .nav-round,
@@ -107,44 +106,35 @@ mark{
   pointer-events: auto;
 }
 
-/* Glass button base */
-.nav-round,
-.nav-capsule,
-.bottom-pill,
-.compose-fab{
-  background: linear-gradient(180deg, var(--glass), var(--glass2));
-  border: 1px solid var(--glass-stroke);
-  box-shadow: var(--glass-shadow);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-}
-
-/* Back circle */
+/* glass pill look closer to iOS */
 .nav-round{
   width: 46px;
   height: 46px;
   border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   display: grid;
   place-items: center;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
   text-decoration: none;
 }
 
-.nav-round img{
-  height: 22px;
-  width: auto;
-  display: block;
-}
-
-/* Right capsule group */
 .nav-capsule{
   display: flex;
   gap: 0;
   border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
   overflow: hidden;
 }
 
 .nav-capsule-btn{
-  width: 52px;
+  width: 54px;
   height: 46px;
   display: grid;
   place-items: center;
@@ -155,13 +145,31 @@ mark{
   border-left: 1px solid rgba(255,255,255,0.10);
 }
 
-.nav-capsule-btn img{
+/* ===== Modern icon system (inline SVG) ===== */
+/* ✅ default = white, ONLY the yellow icon gets .is-accent */
+.ico{
+  width: 22px;
   height: 22px;
-  width: auto;
   display: block;
+  color: var(--icon);
 }
 
-/* ======= Audio card ======= */
+.is-accent .ico{
+  color: var(--accent);
+}
+
+/* ensure strokes look iOS-ish */
+.ico path,
+.ico line,
+.ico polyline,
+.ico circle,
+.ico rect{
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ======= Audio card (iOS Notes voice memo card look) ======= */
 .audio-card{
   background: linear-gradient(180deg, rgba(42,42,46,0.95), rgba(34,34,38,0.88));
   border: 1px solid rgba(255,255,255,0.06);
@@ -225,7 +233,7 @@ mark{
   align-items: center;
   gap: 10px;
   background: rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   color: var(--text);
   padding: 10px 14px;
   border-radius: 999px;
@@ -245,12 +253,10 @@ mark{
   box-shadow: 0 14px 24px rgba(250,204,21,0.10), 0 10px 18px rgba(0,0,0,0.35);
 }
 
-.play-pill:active{
-  transform: scale(0.99);
-}
+.play-pill:active{ transform: scale(0.99); }
 
 /* ======= Bottom chrome ======= */
-/* CHANGE: no bar background, only floating pill + compose */
+/* ✅ No bar background — only pill/fab are glass */
 .bottom-chrome{
   position: fixed;
   bottom: 0;
@@ -264,7 +270,7 @@ mark{
   gap: 14px;
   z-index: 1000;
   pointer-events: none;
-  background: transparent; /* IMPORTANT */
+  background: transparent; /* ✅ */
 }
 
 .bottom-pill,
@@ -272,12 +278,16 @@ mark{
   pointer-events: auto;
 }
 
-/* Bottom pill */
 .bottom-pill{
   display: flex;
   gap: 22px;
   padding: 12px 18px;
   border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
 }
 
 .bottom-icon{
@@ -286,29 +296,21 @@ mark{
   display: grid;
   place-items: center;
   text-decoration: none;
-  border-radius: 12px;
+  border-radius: 999px;
 }
 
-.bottom-icon img{
-  height: 28px;
-  width: auto;
-  display: block;
-}
-
-/* Compose floating button */
 .compose-fab{
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 18px;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
   display: grid;
   place-items: center;
   text-decoration: none;
-}
-
-.compose-fab img{
-  height: 30px;
-  width: auto;
-  display: block;
 }
 
 /* ======= Listener notes section ======= */
@@ -332,14 +334,10 @@ mark{
   box-shadow: 0 10px 18px rgba(0,0,0,0.28);
 }
 
-.message strong{
-  color: var(--accent);
-}
+.message strong{ color: var(--accent); }
 
 /* ======= Transcript modal ======= */
-body.modal-lock{
-  overflow: hidden;
-}
+body.modal-lock{ overflow: hidden; }
 
 .modal{
   position: fixed;
@@ -348,9 +346,7 @@ body.modal-lock{
   z-index: 2000;
 }
 
-.modal.open{
-  display: block;
-}
+.modal.open{ display: block; }
 
 .modal-backdrop{
   position: absolute;
@@ -367,7 +363,7 @@ body.modal-lock{
   height: calc(100vh - env(safe-area-inset-top) - 100px);
   border-radius: 28px;
   background: linear-gradient(180deg, rgba(42,42,46,0.96), rgba(26,26,28,0.92));
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -393,7 +389,7 @@ body.modal-lock{
 
 .sheet-ghost{
   background: rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   color: var(--text);
   width: 44px;
   height: 44px;
@@ -427,9 +423,7 @@ body.modal-lock{
   font-size: 1rem;
 }
 
-.sheet-meta .dot{
-  margin: 0 8px;
-}
+.sheet-meta .dot{ margin: 0 8px; }
 
 .sheet-body{
   padding: 14px 22px;
@@ -482,24 +476,11 @@ body.modal-lock{
   cursor: pointer;
 }
 
-/* ===== Modern iPhone Notes-ish icon system (no images) ===== */
-.ico{
-  width: 22px;
-  height: 22px;
-  display: block;
-  /* IMPORTANT: SVG should use currentColor to match */
-  color: var(--accent);
-}
-
-/* optional: use for white icons (share/more) if you want exact iOS look */
-.ico.white{ color: rgba(255,255,255,0.92); }
-.ico.dim{ color: rgba(255,255,255,0.78); }
-.ico.yellow{ color: var(--accent); }
-
 /* Small screens */
 @media (max-width: 600px){
   h1{ font-size: 1.85rem; }
   .intro, .description{ font-size: 1.15rem; }
+
   .modal-sheet{
     width: calc(100vw - 18px);
     top: calc(env(safe-area-inset-top) + 58px);
