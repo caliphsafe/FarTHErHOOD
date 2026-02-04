@@ -9,54 +9,68 @@
 <body>
 
   <!-- Top chrome (iOS Notes vibe) -->
-<div class="top-chrome">
-  <!-- Back (white) -->
-  <a class="nav-round" href="#" aria-label="Back">
-    <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M15.5 5.5L9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
-
-  <!-- Right capsule: collaborator/check (yellow) + share (white) + ellipsis (white) -->
-  <div class="nav-capsule" role="group" aria-label="Actions">
-    <a class="nav-capsule-btn" href="#" aria-label="Collaborators">
-      <!-- PERSON + CHECK (yellow) -->
-      <svg class="ico ico-yellow" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- head -->
-        <path d="M9.2 10.2a3.1 3.1 0 1 0 0-6.2a3.1 3.1 0 0 0 0 6.2Z"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- shoulders -->
-        <path d="M4.4 19.2c.8-3.3 3-5 4.8-5s4 1.7 4.8 5"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- check circle -->
-        <path d="M16.9 19.4a3.6 3.6 0 1 0 0-7.2a3.6 3.6 0 0 0 0 7.2Z"
-              fill="none" stroke="currentColor" stroke-width="2.2" opacity="0.95"/>
-        <!-- check -->
-        <path d="M15.6 15.8l1.0 1.0l2.2-2.2"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <div class="top-chrome">
+    <!-- Back (white chevron, iOS-ish) -->
+    <a class="nav-round" href="#" aria-label="Back">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14.6 5.6L8.7 12l5.9 6.4"
+              fill="none" stroke="currentColor" stroke-width="2.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
 
-    <a class="nav-capsule-btn" href="#" aria-label="Share">
-      <!-- SHARE (white) -->
-      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 3.7v10.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-        <path d="M8.6 6.9L12 3.6l3.4 3.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6.5 10.8v7.1c0 1 .8 1.8 1.8 1.8h7.4c1 0 1.8-.8 1.8-1.8v-7.1"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-      </svg>
-    </a>
+    <!-- Right capsule: collaborators (yellow) + share (white) + ellipsis (white) -->
+    <div class="nav-capsule" role="group" aria-label="Actions">
+      <!-- Collaborators (ONLY yellow) -->
+      <a class="nav-capsule-btn is-accent" href="#" aria-label="Collaborators">
+        <!-- person + check (SF-symbols-ish) -->
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- person -->
+          <path d="M10 11.2c2 0 3.6-1.7 3.6-3.8S12 3.6 10 3.6 6.4 5.3 6.4 7.4 8 11.2 10 11.2Z"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4.9 20.2c.7-3.6 3-5.9 5.1-5.9s4.4 2.3 5.1 5.9"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
 
-    <a class="nav-capsule-btn" href="#" aria-label="More">
-      <!-- ELLIPSIS (white) -->
-      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="6.8" cy="12" r="1.4" fill="currentColor"/>
-        <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
-        <circle cx="17.2" cy="12" r="1.4" fill="currentColor"/>
-      </svg>
-    </a>
+          <!-- check circle -->
+          <path d="M17.3 19.3a3.8 3.8 0 1 0 0-7.6 3.8 3.8 0 0 0 0 7.6Z"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- check -->
+          <path d="M15.9 15.7l1.1 1.1 2.6-2.6"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- Share (square + up arrow like Notes) -->
+      <a class="nav-capsule-btn" href="#" aria-label="Share">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- arrow up -->
+          <path d="M12 3.8v9.4"
+                fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round"/>
+          <path d="M8.8 7l3.2-3.2L15.2 7"
+                fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- box -->
+          <path d="M6.8 11.2v7c0 1.1.9 2 2 2h6.4c1.1 0 2-.9 2-2v-7"
+                fill="none" stroke="currentColor" stroke-width="2.1"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- Ellipsis (exact spacing vibe) -->
+      <a class="nav-capsule-btn" href="#" aria-label="More">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="6.7" cy="12" r="1.35" fill="currentColor"/>
+          <circle cx="12" cy="12" r="1.35" fill="currentColor"/>
+          <circle cx="17.3" cy="12" r="1.35" fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
   </div>
-</div>
 
   <div class="container">
     <main>
@@ -80,46 +94,71 @@
     </main>
   </div>
 
-<!-- BOTTOM CHROME -->
-<div class="bottom-chrome">
-  <div class="bottom-pill" role="group" aria-label="Tools">
-    <!-- checklist -->
-    <a class="bottom-icon" href="#" aria-label="Checklist">
-      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M6.3 7.6l1.1 1.1l2.1-2.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M11 8h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M6.3 12l1.1 1.1l2.1-2.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M11 12.4h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-      </svg>
-    </a>
+  <!-- BOTTOM CHROME -->
+  <div class="bottom-chrome">
+    <div class="bottom-pill" role="group" aria-label="Tools">
+      <!-- Checklist (three lines + checks vibe) -->
+      <a class="bottom-icon" href="#" aria-label="Checklist">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.4 7.3l1.1 1.1 2.2-2.3"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.2 8h7.2"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round"/>
 
-    <!-- paperclip -->
-    <a class="bottom-icon" href="#" aria-label="Attach">
-      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M10.3 7.5l7.2 7.2a3.2 3.2 0 0 1-4.5 4.5L6.9 13a4.4 4.4 0 0 1 6.2-6.2l6.1 6.1"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+          <path d="M6.4 12l1.1 1.1 2.2-2.3"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.2 12.7h7.2"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round"/>
 
-    <!-- marker -->
-    <a class="bottom-icon" href="#" aria-label="Markup">
-      <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4.5 19.5l4.4-1.1L19 8.3a2.3 2.3 0 0 0 0-3.2l-.1-.1a2.3 2.3 0 0 0-3.2 0L5.6 15.1 4.5 19.5Z"
-              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M13.2 6.8l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M6.4 16.7l1.1 1.1 2.2-2.3"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.2 17.4h7.2"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round"/>
+        </svg>
+      </a>
+
+      <!-- Paperclip (SF-ish clip) -->
+      <a class="bottom-icon" href="#" aria-label="Attach">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9.2 7.6l7.1 7.1a3.4 3.4 0 1 1-4.8 4.8L6.7 14.7a4.6 4.6 0 0 1 6.5-6.5l6 6"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- Markup pen tip (Notes-ish) -->
+      <a class="bottom-icon" href="#" aria-label="Markup">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.8 19.2l4.9-1.2L19 8.7a2.4 2.4 0 0 0 0-3.4l-.3-.3a2.4 2.4 0 0 0-3.4 0L5.9 14.4 4.8 19.2Z"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.7 6.6l3.7 3.7"
+                fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Compose (square + pencil vibe like Notes new note) -->
+    <a class="compose-fab" href="#" aria-label="New Note">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+        <!-- square -->
+        <path d="M7.2 20.2h9.6c1.2 0 2.2-1 2.2-2.2V8.6c0-1.2-1-2.2-2.2-2.2H7.2C6 6.4 5 7.4 5 8.6V18c0 1.2 1 2.2 2.2 2.2Z"
+              fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- pencil -->
+        <path d="M10.2 15.9l5.6-5.6a1.7 1.7 0 0 0 0-2.4l-.1-.1a1.7 1.7 0 0 0-2.4 0l-5.6 5.6-.6 3.1 3.1-.6Z"
+              fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
   </div>
-
-  <!-- compose button -->
-  <a class="compose-fab" href="#" aria-label="New Note">
-    <svg class="ico ico-white" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4.8 19.2l4.6-1.1L19 8.5a2.3 2.3 0 0 0 0-3.3l-.2-.2a2.3 2.3 0 0 0-3.3 0L5.8 14.6 4.8 19.2Z"
-            fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M13.4 6.6l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-    </svg>
-  </a>
-</div>
 
   <!-- Shared Audio Player -->
   <audio id="sharedAudio" preload="metadata"></audio>
@@ -232,8 +271,8 @@ it's getting harder to hold the dinero…`,
       }
     ];
 
-    let currentIndex = -1;     // which track is loaded/active
-    let modalIndex = -1;       // which track modal is showing
+    let currentIndex = -1;
+    let modalIndex = -1;
     let rafId = null;
 
     function renderTracks() {
@@ -281,11 +320,8 @@ it's getting harder to hold the dinero…`,
     function ensureTrackLoaded(index) {
       if (index < 0 || index >= tracks.length) return false;
 
-      // If a different track is requested, load it
       if (currentIndex !== index) {
-        // reset previous card button
         if (currentIndex !== -1) setCardButtonState(currentIndex, false);
-
         currentIndex = index;
         sharedAudio.src = tracks[index].file;
       }
@@ -315,9 +351,9 @@ it's getting harder to hold the dinero…`,
     }
 
     function setCardButtonState(index, isPlaying) {
-      const icon = document.getElementById(`icon-${index}`);
-      const text = document.getElementById(`text-${index}`);
-      const btn  = document.getElementById(`btn-${index}`);
+      const icon = document.getElementById(\`icon-\${index}\`);
+      const text = document.getElementById(\`text-\${index}\`);
+      const btn  = document.getElementById(\`btn-\${index}\`);
       if (!icon || !text || !btn) return;
 
       if (isPlaying) {
@@ -336,15 +372,13 @@ it's getting harder to hold the dinero…`,
 
       const t = tracks[index];
       sheetTitle.textContent = t.title;
-      sheetMeta.innerHTML = `${formatModalDate(t.date)} <span class="dot">•</span> ${t.duration}`;
+      sheetMeta.innerHTML = \`\${formatModalDate(t.date)} <span class="dot">•</span> \${t.duration}\`;
       sheetBody.textContent = t.transcript;
 
-      // Show modal
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-lock");
 
-      // Sync play button + timer immediately
       syncModalPlayButton();
       startTimerLoop();
     }
@@ -363,11 +397,9 @@ it's getting harder to hold the dinero…`,
       if (e.key === "Escape" && modal.classList.contains("open")) closeTranscript();
     });
 
-    // ===== Modal control wiring (REAL AUDIO) =====
     btnModalPlay.addEventListener("click", () => {
       if (modalIndex === -1) return;
 
-      // Ensure modal track is loaded; do NOT auto-play on open, only when tapped
       ensureTrackLoaded(modalIndex);
 
       if (!sharedAudio.paused) {
@@ -376,9 +408,7 @@ it's getting harder to hold the dinero…`,
       } else {
         sharedAudio.play().then(() => {
           setCardButtonState(currentIndex, true);
-        }).catch(() => {
-          // ignore
-        });
+        }).catch(() => {});
       }
 
       syncModalPlayButton();
@@ -390,14 +420,11 @@ it's getting harder to hold the dinero…`,
     function seekBy(seconds) {
       if (!sharedAudio.src) return;
       const t = sharedAudio.currentTime || 0;
-      const next = Math.max(0, t + seconds);
-      sharedAudio.currentTime = next;
-      // update immediately
+      sharedAudio.currentTime = Math.max(0, t + seconds);
       updateTimer();
     }
 
     function syncModalPlayButton() {
-      // Only show pause if modal is open AND the modal track is the one playing
       const modalOpen = modal.classList.contains("open");
       if (!modalOpen) return;
 
@@ -407,7 +434,6 @@ it's getting harder to hold the dinero…`,
       btnModalPlay.textContent = playing ? "⏸" : "▶";
     }
 
-    // Keep modal button + card buttons in sync with native audio events
     sharedAudio.addEventListener("play", () => {
       if (currentIndex !== -1) setCardButtonState(currentIndex, true);
       syncModalPlayButton();
@@ -423,14 +449,9 @@ it's getting harder to hold the dinero…`,
       syncModalPlayButton();
       updateTimer();
 
-      // Auto-advance to next track like Notes (optional)
       if (currentIndex + 1 < tracks.length) {
         togglePlay(currentIndex + 1);
-
-        // If modal is open, update modal content to follow the new track
-        if (modal.classList.contains("open")) {
-          openTranscript(currentIndex);
-        }
+        if (modal.classList.contains("open")) openTranscript(currentIndex);
       }
     });
 
@@ -438,7 +459,6 @@ it's getting harder to hold the dinero…`,
       if (modal.classList.contains("open")) updateTimer();
     });
 
-    // ===== Timer loop (smooth) =====
     function startTimerLoop() {
       stopTimerLoop();
       const loop = () => {
@@ -456,7 +476,6 @@ it's getting harder to hold the dinero…`,
     }
 
     function updateTimer() {
-      // Only show running time if modal track is active; else show 00:00.00
       const isModalTrackActive = (modalIndex !== -1 && currentIndex === modalIndex && sharedAudio.src);
       const t = isModalTrackActive ? (sharedAudio.currentTime || 0) : 0;
       sheetTimer.textContent = formatTimer(t);
@@ -466,16 +485,11 @@ it's getting harder to hold the dinero…`,
       const s = Math.max(0, seconds);
       const mm = Math.floor(s / 60);
       const ss = Math.floor(s % 60);
-      const cs = Math.floor((s - Math.floor(s)) * 100); // centiseconds
+      const cs = Math.floor((s - Math.floor(s)) * 100);
 
-      const mmStr = String(mm).padStart(2, "0");
-      const ssStr = String(ss).padStart(2, "0");
-      const csStr = String(cs).padStart(2, "0");
-
-      return `${mmStr}:${ssStr}.${csStr}`;
+      return \`\${String(mm).padStart(2,"0")}:\${String(ss).padStart(2,"0")}.\${String(cs).padStart(2,"0")}\`;
     }
 
-    // ===== Utilities =====
     function escapeHtml(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -486,8 +500,6 @@ it's getting harder to hold the dinero…`,
     }
 
     function formatModalDate(dateStr) {
-      // You can keep it simple (matches vibe)
-      // "Feb 28, 2025 at 12:40 AM" -> "2/28/25, 12:40 AM"
       return dateStr
         .replace("Jan ", "1/").replace("Feb ", "2/").replace("Mar ", "3/")
         .replace("Apr ", "4/").replace("May ", "5/").replace("Jun ", "6/")
@@ -501,4 +513,4 @@ it's getting harder to hold the dinero…`,
     updateTimer();
   </script>
 </body>
-</html> 
+</html>
