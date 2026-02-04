@@ -487,4 +487,135 @@ body.modal-lock{
     height: calc(100vh - env(safe-area-inset-top) - 76px);
     border-radius: 26px;
   }
+} 
+/* ===== Modern iPhone Notes-ish icon system (no images) ===== */
+
+:root{
+  --ios-yellow: #facc15;
+  --ios-ink: rgba(255,255,255,0.92);
+  --ios-dim: rgba(255,255,255,0.72);
+  --ios-glass: rgba(40,40,44,0.62);
+  --ios-glass2: rgba(24,24,26,0.55);
+  --ios-stroke: rgba(255,255,255,0.10);
+  --ios-stroke2: rgba(255,255,255,0.08);
+}
+
+/* the SVG itself */
+.ico{
+  width: 22px;
+  height: 22px;
+  display: block;
+  color: var(--ios-yellow);
+}
+
+/* Top chrome container (if you already have these, keep yours — this just improves the look) */
+.top-chrome{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.top-chrome > *{
+  pointer-events: auto;
+}
+
+/* left round back */
+.nav-round{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(32,32,34,0.55);
+  border: 1px solid var(--ios-stroke);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* right capsule */
+.nav-capsule{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(32,32,34,0.55);
+  border: 1px solid var(--ios-stroke);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.nav-capsule-btn{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+}
+
+/* Bottom chrome (pill + compose) */
+.bottom-chrome{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.bottom-chrome > *{
+  pointer-events: auto;
+}
+
+.bottom-pill{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(32,32,34,0.55);
+  border: 1px solid var(--ios-stroke);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.bottom-icon{
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+}
+
+.compose-fab{
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(32,32,34,0.55);
+  border: 1px solid var(--ios-stroke);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Make sure content isn't hidden under floating bars */
+.container{
+  padding-top: 92px;
+  padding-bottom: 170px;
 }
