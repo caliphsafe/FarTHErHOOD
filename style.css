@@ -1,116 +1,292 @@
-/* === Reset === */
-body {
+/* =========================
+   FarTHErHOOD — iOS Notes (newer vibe)
+   Drop-in replacement for your current style.css
+   ========================= */
+
+/* Base */
+:root{
+  --bg: #0b0b0c;
+  --panel: rgba(28, 28, 30, 0.78);        /* iOS-style material */
+  --panelSolid: #1c1c1e;
+  --card: rgba(28, 28, 30, 0.92);
+  --stroke: rgba(255,255,255,0.10);
+  --stroke2: rgba(255,255,255,0.06);
+
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.64);
+  --faint: rgba(255,255,255,0.38);
+
+  --accent: #facc15;
+
+  --radius: 16px;
+  --radius2: 14px;
+
+  --shadow: 0 16px 40px rgba(0,0,0,0.45);
+  --shadow2: 0 8px 20px rgba(0,0,0,0.35);
+
+  --maxw: 640px;
+  --barH: 56px;
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
   margin: 0;
   padding: 0;
-  background-color: #000;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(1200px 800px at 50% -10%, rgba(250,204,21,0.10), transparent 55%),
+              radial-gradient(1000px 700px at 20% 10%, rgba(120,155,255,0.08), transparent 60%),
+              var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
 }
 
-.container {
-  padding: 16px;
-  max-width: 600px;
+/* Main container */
+.container{
+  padding: 18px;
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding-bottom: 160px;
-  padding-top: 80px;
+
+  /* safe area + fixed bars spacing */
+  padding-top: calc(var(--barH) + env(safe-area-inset-top) + 10px);
+  padding-bottom: calc(var(--barH) + env(safe-area-inset-bottom) + 34px);
 }
 
-h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 20px 0 12px;
+/* Typography */
+h1{
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 10px 0 10px;
 }
 
-.intro, .description {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 20px;
+.intro, .description{
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 18px;
 }
 
-mark {
-  background-color: #facc15;
-  color: black;
-  padding: 0 4px;
-  border-radius: 3px;
+.description{
+  color: var(--muted);
+  margin-top: -10px;
+  margin-bottom: 26px;
 }
 
-.audio-note {
-  background-color: #1a1a1a;
+mark{
+  background: rgba(250,204,21,0.95);
+  color: #0b0b0c;
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+/* Date/meta line above title */
+.note-meta{
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+/* Audio cards */
+.audio-note{
+  background: linear-gradient(180deg, rgba(28,28,30,0.96), rgba(28,28,30,0.86));
+  border: 1px solid var(--stroke2);
+  border-radius: var(--radius);
   padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.audio-note h2 {
-  font-size: 1rem;
+.audio-note h2{
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   margin: 0 0 6px;
 }
 
-.meta {
-  font-size: 0.85rem;
-  color: #aaa;
-  margin-bottom: 10px;
-}
-
-.transcript {
+.meta{
   font-size: 0.9rem;
-  color: #ccc;
-  border-top: 1px solid #333;
-  padding-top: 10px;
-}
-
-.audio-controls button {
-  background: #facc15;
-  color: #000;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
+  color: var(--muted);
   margin-bottom: 12px;
 }
 
-/* === Header & Footer Bars === */
+.transcript{
+  font-size: 0.95rem;
+  color: var(--faint);
+  border-top: 1px solid var(--stroke2);
+  padding-top: 12px;
+  margin-top: 10px;
+}
+
+/* Buttons (Play/Pause + form submit) */
+.audio-controls button,
+.note-form button{
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(0,0,0,0.25);
+  background: linear-gradient(180deg, rgba(250,204,21,1), rgba(223,181,20,1));
+  color: #121212;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.audio-controls button:active,
+.note-form button:active{
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* Bars (newer iOS material) */
 .top-bar,
-.bottom-bar {
+.bottom-bar{
   position: fixed;
-  background-color: #000;
+  left: 0;
   width: 100%;
-  height: 60px;
+  height: var(--barH);
   display: flex;
   align-items: center;
-  padding: 0 20px;
   z-index: 999;
+
+  /* material */
+  background: rgba(18,18,20,0.72);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
-.top-bar {
+.top-bar{
   top: 0;
+  padding-top: env(safe-area-inset-top);
+  height: calc(var(--barH) + env(safe-area-inset-top));
   justify-content: space-between;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
-.bottom-bar {
+.bottom-bar{
   bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(var(--barH) + env(safe-area-inset-bottom));
   justify-content: space-around;
 }
 
-/* === Icons === */
-.top-icon img {
-  height: 28px;
+/* Icon sizing + tap targets */
+.top-icon,
+.bottom-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
 }
 
-.bottom-icon img {
-  height: 36px;
+.top-icon img,
+.bottom-icon img{
+  height: 30px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+}
+
+.top-icons{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Listener notes section */
+.messages-section{
+  margin-top: 28px;
+  padding-top: 10px;
+}
+
+.messages-section h2{
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.message{
+  background: linear-gradient(180deg, rgba(28,28,30,0.92), rgba(28,28,30,0.80));
+  border: 1px solid var(--stroke2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.message strong{
+  color: var(--accent);
+}
+
+/* Floating note form (iOS popover vibe) */
+.note-form{
+  position: fixed;
+  right: 16px;
+  bottom: calc(var(--barH) + env(safe-area-inset-bottom) + 14px);
+  width: min(320px, calc(100vw - 32px));
+  background: rgba(20,20,22,0.92);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  z-index: 9999;
+  display: none;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.note-form input,
+.note-form textarea{
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 10px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.note-form input{
+  margin-bottom: 10px;
+}
+
+.note-form textarea{
+  min-height: 96px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.note-form input::placeholder,
+.note-form textarea::placeholder{
+  color: rgba(255,255,255,0.45);
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-  .container {
-    padding-top: 80px;
-    padding-bottom: 160px;
+@media (max-width: 600px){
+  .container{
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .audio-controls button {
+  .audio-controls button{
     width: 100%;
   }
 }
