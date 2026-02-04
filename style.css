@@ -1,292 +1,490 @@
-/* =========================
-   FarTHErHOOD — iOS Notes (newer vibe)
-   Drop-in replacement for your current style.css
-   ========================= */
-
-/* Base */
 :root{
-  --bg: #0b0b0c;
-  --panel: rgba(28, 28, 30, 0.78);        /* iOS-style material */
-  --panelSolid: #1c1c1e;
-  --card: rgba(28, 28, 30, 0.92);
-  --stroke: rgba(255,255,255,0.10);
-  --stroke2: rgba(255,255,255,0.06);
-
+  --bg: #09090a;
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.64);
-  --faint: rgba(255,255,255,0.38);
+  --muted: rgba(255,255,255,0.62);
+  --faint: rgba(255,255,255,0.40);
+
+  --card: rgba(34,34,36,0.92);
+  --card2: rgba(32,32,34,0.78);
+  --stroke: rgba(255,255,255,0.08);
 
   --accent: #facc15;
 
-  --radius: 16px;
-  --radius2: 14px;
+  --radius: 18px;
+  --radius2: 16px;
 
-  --shadow: 0 16px 40px rgba(0,0,0,0.45);
-  --shadow2: 0 8px 20px rgba(0,0,0,0.35);
+  --shadow: 0 18px 50px rgba(0,0,0,0.55);
+  --shadow2: 0 10px 28px rgba(0,0,0,0.40);
 
-  --maxw: 640px;
-  --barH: 56px;
+  --maxw: 720px;
+  --topPad: calc(env(safe-area-inset-top) + 70px);
+  --botPad: calc(env(safe-area-inset-bottom) + 110px);
 }
 
 *{ box-sizing: border-box; }
-html, body { height: 100%; }
+html, body{ height: 100%; }
 
 body{
   margin: 0;
-  padding: 0;
-  background: radial-gradient(1200px 800px at 50% -10%, rgba(250,204,21,0.10), transparent 55%),
-              radial-gradient(1000px 700px at 20% 10%, rgba(120,155,255,0.08), transparent 60%),
-              var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(250,204,21,0.12), transparent 55%),
+    radial-gradient(1000px 600px at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
+    var(--bg);
   overflow-x: hidden;
 }
 
-/* Main container */
 .container{
-  padding: 18px;
   max-width: var(--maxw);
   margin: 0 auto;
-
-  /* safe area + fixed bars spacing */
-  padding-top: calc(var(--barH) + env(safe-area-inset-top) + 10px);
-  padding-bottom: calc(var(--barH) + env(safe-area-inset-bottom) + 34px);
+  padding: var(--topPad) 18px var(--botPad);
 }
 
-/* Typography */
-h1{
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 10px 0 10px;
-}
-
-.intro, .description{
-  font-size: 1.02rem;
-  line-height: 1.55;
-  color: var(--text);
-  margin-bottom: 18px;
-}
-
-.description{
+.note-meta{
+  text-align: center;
   color: var(--muted);
-  margin-top: -10px;
-  margin-bottom: 26px;
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+}
+
+h1{
+  font-size: 2.0rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  font-weight: 900;
+}
+
+.intro{
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 24px;
+  padding-right: 10px;
 }
 
 mark{
-  background: rgba(250,204,21,0.95);
+  background: rgba(250,204,21,0.85);
   color: #0b0b0c;
   padding: 0 6px;
   border-radius: 6px;
 }
 
-/* Date/meta line above title */
-.note-meta{
-  font-size: 0.92rem;
+.description{
   color: var(--muted);
-  margin: 0 0 6px;
-  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.65;
+  margin: 6px 0 26px;
 }
 
-/* Audio cards */
-.audio-note{
-  background: linear-gradient(180deg, rgba(28,28,30,0.96), rgba(28,28,30,0.86));
-  border: 1px solid var(--stroke2);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 18px;
-  box-shadow: var(--shadow2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.audio-note h2{
-  font-size: 1.02rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  margin: 0 0 6px;
-}
-
-.meta{
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.transcript{
-  font-size: 0.95rem;
-  color: var(--faint);
-  border-top: 1px solid var(--stroke2);
-  padding-top: 12px;
-  margin-top: 10px;
-}
-
-/* Buttons (Play/Pause + form submit) */
-.audio-controls button,
-.note-form button{
-  appearance: none;
-  -webkit-appearance: none;
-  border: 1px solid rgba(0,0,0,0.25);
-  background: linear-gradient(180deg, rgba(250,204,21,1), rgba(223,181,20,1));
-  color: #121212;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
-  transition: transform 120ms ease, filter 120ms ease;
-}
-
-.audio-controls button:active,
-.note-form button:active{
-  transform: scale(0.98);
-  filter: brightness(0.95);
-}
-
-/* Bars (newer iOS material) */
-.top-bar,
-.bottom-bar{
+/* ======= Top iOS-like chrome ======= */
+.top-chrome{
   position: fixed;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: var(--barH);
+  right: 0;
+  height: calc(env(safe-area-inset-top) + 64px);
+  padding-top: env(safe-area-inset-top);
   display: flex;
   align-items: center;
-  z-index: 999;
-
-  /* material */
-  background: rgba(18,18,20,0.72);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.top-bar{
-  top: 0;
-  padding-top: env(safe-area-inset-top);
-  height: calc(var(--barH) + env(safe-area-inset-top));
   justify-content: space-between;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 14px;
+  padding-right: 14px;
+  z-index: 1000;
+  pointer-events: none; /* only buttons capture clicks */
 }
 
-.bottom-bar{
-  bottom: 0;
-  padding-bottom: env(safe-area-inset-bottom);
-  height: calc(var(--barH) + env(safe-area-inset-bottom));
-  justify-content: space-around;
+.nav-round,
+.nav-capsule{
+  pointer-events: auto;
 }
 
-/* Icon sizing + tap targets */
-.top-icon,
-.bottom-icon{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  border-radius: 12px;
+.nav-round{
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: rgba(20,20,22,0.70);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow2);
+  text-decoration: none;
 }
 
-.top-icon img,
-.bottom-icon img{
-  height: 30px;
+.nav-round img{
+  height: 22px;
   width: auto;
   display: block;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
 }
 
-.top-icons{
+.nav-capsule{
+  display: flex;
+  gap: 0;
+  border-radius: 999px;
+  background: rgba(20,20,22,0.70);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow2);
+  overflow: hidden;
+}
+
+.nav-capsule-btn{
+  width: 52px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.nav-capsule-btn + .nav-capsule-btn{
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-capsule-btn img{
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+/* ======= Audio card (iOS Notes voice memo card look) ======= */
+.audio-card{
+  background: linear-gradient(180deg, rgba(42,42,46,0.95), rgba(34,34,38,0.88));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.card-title{
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  font-size: 1.1rem;
+}
+
+.card-sub{
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.card-divider{
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin: 14px 0 12px;
+}
+
+.card-transcript{
+  cursor: pointer;
+  user-select: none;
+}
+
+.t-label{
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.t-preview{
+  color: rgba(255,255,255,0.42);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Play pill */
+.play-pill{
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
 }
 
-/* Listener notes section */
+.play-pill .play-icon{
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.play-pill.is-playing{
+  border-color: rgba(250,204,21,0.35);
+  box-shadow: 0 14px 24px rgba(250,204,21,0.10), 0 10px 18px rgba(0,0,0,0.35);
+}
+
+.play-pill:active{
+  transform: scale(0.99);
+}
+
+/* ======= Bottom chrome ======= */
+.bottom-chrome{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(env(safe-area-inset-bottom) + 88px);
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.bottom-pill,
+.compose-fab{
+  pointer-events: auto;
+}
+
+.bottom-pill{
+  display: flex;
+  gap: 22px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(20,20,22,0.70);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow2);
+}
+
+.bottom-icon{
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+.bottom-icon img{
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.compose-fab{
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: rgba(20,20,22,0.70);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow2);
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.compose-fab img{
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+/* ======= Listener notes section ======= */
 .messages-section{
-  margin-top: 28px;
-  padding-top: 10px;
+  margin-top: 34px;
 }
 
 .messages-section h2{
+  margin: 0 0 12px;
   font-size: 1.05rem;
   font-weight: 900;
   letter-spacing: -0.01em;
-  margin: 0 0 12px;
-  color: var(--text);
 }
 
 .message{
-  background: linear-gradient(180deg, rgba(28,28,30,0.92), rgba(28,28,30,0.80));
-  border: 1px solid var(--stroke2);
+  background: rgba(34,34,38,0.85);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 14px;
   padding: 12px 14px;
   margin-bottom: 10px;
   box-shadow: 0 10px 18px rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .message strong{
   color: var(--accent);
 }
 
-/* Floating note form (iOS popover vibe) */
-.note-form{
-  position: fixed;
-  right: 16px;
-  bottom: calc(var(--barH) + env(safe-area-inset-bottom) + 14px);
-  width: min(320px, calc(100vw - 32px));
-  background: rgba(20,20,22,0.92);
-  border: 1px solid var(--stroke);
-  border-radius: 18px;
-  padding: 14px;
-  box-shadow: var(--shadow);
-  z-index: 9999;
-  display: none;
+/* ======= Transcript modal ======= */
+body.modal-lock{
+  overflow: hidden;
+}
 
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 2000;
+}
+
+.modal.open{
+  display: block;
+}
+
+.modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.modal-sheet{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(env(safe-area-inset-top) + 70px);
+  width: min(720px, calc(100vw - 28px));
+  height: calc(100vh - env(safe-area-inset-top) - 100px);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(42,42,46,0.96), rgba(26,26,28,0.92));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.note-form input,
-.note-form textarea{
-  width: 100%;
-  background: rgba(255,255,255,0.06);
+.sheet-handle{
+  width: 46px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.18);
+  margin: 10px auto 2px;
+}
+
+.sheet-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 0;
+}
+
+.sheet-ghost{
+  background: rgba(0,0,0,0.35);
   border: 1px solid rgba(255,255,255,0.08);
   color: var(--text);
-  border-radius: 12px;
-  padding: 10px 10px;
-  font-size: 0.95rem;
-  outline: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
-.note-form input{
+.sheet-done{
+  background: rgba(250,204,21,0.92);
+  border: none;
+  color: #0b0b0c;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.sheet-title{
+  padding: 10px 18px 0;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.sheet-meta{
+  padding: 6px 18px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.sheet-meta .dot{
+  margin: 0 8px;
+}
+
+.sheet-body{
+  padding: 14px 22px;
+  overflow: auto;
+  color: var(--text);
+  font-size: 1.25rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  flex: 1 1 auto;
+}
+
+.sheet-player{
+  padding: 12px 16px 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.18);
+}
+
+.sheet-timer{
+  text-align: center;
+  font-size: 3.0rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
   margin-bottom: 10px;
 }
 
-.note-form textarea{
-  min-height: 96px;
-  resize: none;
-  margin-bottom: 10px;
+.sheet-controls{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
 }
 
-.note-form input::placeholder,
-.note-form textarea::placeholder{
-  color: rgba(255,255,255,0.45);
+.sheet-skip{
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.9;
 }
 
-/* Responsive */
+.sheet-play{
+  width: 76px;
+  height: 76px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  color: var(--text);
+  font-size: 1.9rem;
+  cursor: pointer;
+}
+
+/* Small screens */
 @media (max-width: 600px){
-  .container{
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .audio-controls button{
-    width: 100%;
+  h1{ font-size: 1.85rem; }
+  .intro, .description{ font-size: 1.15rem; }
+  .modal-sheet{
+    width: calc(100vw - 18px);
+    top: calc(env(safe-area-inset-top) + 58px);
+    height: calc(100vh - env(safe-area-inset-top) - 76px);
+    border-radius: 26px;
   }
 }
