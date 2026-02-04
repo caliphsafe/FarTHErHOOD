@@ -2,81 +2,174 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>CALIPH - FarTHErHOOD</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Top Bar Header -->
-  <div class="top-bar">
-    <a href="#" class="top-icon left"><img src="back.png" alt="Back" /></a>
-    <div class="top-icons right">
-      <a href="#" class="top-icon"><img src="share.png" alt="Share" /></a>
-      <a href="#" class="top-icon"><img src="more.png" alt="More" /></a>
+  <!-- Top chrome (iOS Notes vibe) -->
+  <div class="top-chrome">
+    <!-- Back button (left) -->
+    <a href="#" class="nav-round" aria-label="Back">
+      <img src="back.png" alt="Back" />
+    </a>
+
+    <!-- Right capsule (share + more) -->
+    <div class="nav-capsule" role="group" aria-label="Actions">
+      <a href="#" class="nav-capsule-btn" aria-label="Share">
+        <img src="share.png" alt="Share" />
+      </a>
+      <a href="#" class="nav-capsule-btn" aria-label="More">
+        <img src="more.png" alt="More" />
+      </a>
     </div>
   </div>
 
   <div class="container">
-    <main><br/>
-      <h1>CALIPH - FarTHErHOOD</h1>
+    <main>
+      <p class="note-meta">May 14, 2025 at 8:49 PM — Shared</p>
+      <h1>CALIPH - <mark>FarTHErHOOD</mark></h1>
+
       <p class="intro">
-        A collection of stories, some connected others not about <mark>father</mark>hood and coparenting in the black community and how the lack there of affects everyone different.
+        A collection of stories, some connected others not about <mark>father</mark>hood and coparenting in the black community and how the lack thereof affects everyone differently.
       </p>
 
       <div class="audio-wrapper" id="audioWrapper"></div>
+
+      <!-- Optional section (keep or remove) -->
+      <div class="messages-section">
+        <h2>Notes from Listeners</h2>
+        <div class="message">
+          <p><strong>Coming soon</strong></p>
+          <p>(Listener notes can live here when you’re ready.)</p>
+        </div>
+      </div>
     </main>
   </div>
 
-  <!-- Bottom Bar Footer -->
-  <div class="bottom-bar">
-    <a href="#" class="bottom-icon"><img src="sub.png" alt="Subscribe" /></a>
-    <a href="#" class="bottom-icon"><img src="buy.png" alt="Buy" /></a>
-    <a href="https://your-merch-link.com" class="bottom-icon"><img src="draw.png" alt="Merch" /></a>
-    <a href="#" class="bottom-icon"><img src="note.png" alt="Add Note" /></a>
+  <!-- Bottom chrome (floating pill + compose) -->
+  <div class="bottom-chrome" aria-label="Bottom actions">
+    <div class="bottom-pill">
+      <a href="#" class="bottom-icon" aria-label="Subscribe">
+        <img src="sub.png" alt="Subscribe" />
+      </a>
+      <a href="#" class="bottom-icon" aria-label="Buy / Download">
+        <img src="buy.png" alt="Buy / Download" />
+      </a>
+      <a href="https://your-merch-link.com" class="bottom-icon" aria-label="Merch">
+        <img src="draw.png" alt="Merch" />
+      </a>
+    </div>
+
+    <a href="#" class="compose-fab" aria-label="Add note">
+      <img src="note.png" alt="Add Note" />
+    </a>
   </div>
 
   <!-- Shared Audio Player -->
   <audio id="sharedAudio"></audio>
 
+  <!-- Transcript Modal (iOS-style sheet) -->
+  <div class="modal" id="transcriptModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Transcript">
+      <div class="sheet-handle"></div>
+
+      <div class="sheet-top">
+        <button class="sheet-ghost" id="sheetMore" aria-label="More">•••</button>
+        <button class="sheet-done" id="sheetDone" aria-label="Done">✓</button>
+      </div>
+
+      <div class="sheet-title" id="sheetTitle">CALIPH - STORY TIME</div>
+      <div class="sheet-meta" id="sheetMeta">2/28/25, 12:40 AM <span class="dot">•</span> 02:07</div>
+
+      <div class="sheet-body" id="sheetBody">
+        <!-- transcript injected -->
+      </div>
+
+      <!-- Decorative bottom controls (matches vibe; not wired to audio) -->
+      <div class="sheet-player">
+        <div class="sheet-timer" id="sheetTimer">00:00.00</div>
+        <div class="sheet-controls">
+          <button class="sheet-skip" aria-label="Back 15">⟲15</button>
+          <button class="sheet-play" aria-label="Play">▶</button>
+          <button class="sheet-skip" aria-label="Forward 15">15⟳</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const sharedAudio = document.getElementById("sharedAudio");
     const audioWrapper = document.getElementById("audioWrapper");
 
+    const modal = document.getElementById("transcriptModal");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const sheetDone = document.getElementById("sheetDone");
+
+    const sheetTitle = document.getElementById("sheetTitle");
+    const sheetMeta  = document.getElementById("sheetMeta");
+    const sheetBody  = document.getElementById("sheetBody");
+
     const tracks = [
       {
-        title: "CALIPH – STORY TIME",
-        date: "February 28, 2025 at 12:40 AM",
+        title: "CALIPH - STORY TIME",
+        date: "Feb 28, 2025 at 12:40 AM",
+        duration: "02:07",
         file: "audio/storytime.mp3",
-        transcript: "Little little place between the oh let's switch the conversation up a bit niggas ain't saying shit ...",
+        transcript:
+`Little little place between the oh let's switch the conversation up a bit
+niggas ain't saying shit and I had enough of it
+I won't give a fuck what you saying
+I'm hustle me so why you at a war with your image
+peace is puzzling and niggas like you let it talk down on a nigga looking like me
+cause I walk down on a nigga
+do not be less than likely to be
+Now what would you say if a nigga like me was your father?`,
         description: "Song about the accidental conception of a child in the black community"
       },
       {
-        title: "CALIPH – EATER JAMES",
-        date: "February 28, 2025 at 12:45 AM",
+        title: "CALIPH - EATER JAMES",
+        date: "Feb 28, 2025 at 12:45 AM",
+        duration: "02:00",
         file: "audio/eaterjames.mp3",
-        transcript: "All right, okay, all right, All right, okay, all right, all right, go, go, okay, right, go, all ...",
-        description: "A song about secret black love that leads to a bad relationship..."
+        transcript:
+`All right, okay, all right…
+(All right, okay, all right…)
+go, go, okay, right, go…`,
+        description: "A song about secret black love that leads to a bad relationship, failed coparenting"
       },
       {
-        title: "CALIPH – BLUE CORNER",
-        date: "February 13, 2025 at 5:03 PM",
+        title: "CALIPH - BLUE CORNER",
+        date: "Feb 13, 2025 at 5:03 PM",
+        duration: "02:00",
         file: "audio/bluecorner.mp3",
-        transcript: "The streets talking I could care less where I'm from we find peace in comparing nike air...",
+        transcript:
+`The streets talking…
+I could care less where I'm from…
+we find peace in comparing Nike Air…`,
         description: "A song about a tragedy as a result of failed co parenting."
       },
       {
-        title: "CALIPH – OBESERVATIONS / A DOLLAR AND A DAD",
-        date: "February 28, 2025 at 12:55 AM",
+        title: "CALIPH - OBESERVATIONS / A DOLLAR AND A DAD",
+        date: "Feb 28, 2025 at 12:55 AM",
+        duration: "02:00",
         file: "audio/dollardad.mp3",
-        transcript: "Conversations switchin up, niggas always act weird when its time to give it up...",
+        transcript:
+`Conversations switchin up…
+niggas always act weird when it's time to give it up…`,
         description: "Crackhead dad encounters his son and opens up."
       },
       {
-        title: "CALIPH – SEEDS",
-        date: "February 28, 2025 at 12:43 AM",
+        title: "CALIPH - SEEDS",
+        date: "Feb 28, 2025 at 12:43 AM",
+        duration: "02:00",
         file: "audio/seeds.mp3",
-        transcript: "The world getting colder than ever, its getting harder to hold the dinero...",
+        transcript:
+`The world getting colder than ever…
+it's getting harder to hold the dinero…`,
         description: "Outro about wanting kids but with fear of doing it with the wrong woman."
       }
     ];
@@ -85,44 +178,133 @@
 
     function renderTracks() {
       audioWrapper.innerHTML = "";
+
       tracks.forEach((track, i) => {
         const html = `
-        <section class="audio-note">
-          <h2>${track.title}</h2>
-          <p class="meta">${track.date} · Audio · 2m</p>
-          <div class="audio-controls">
-            <button onclick="togglePlay(${i})" id="btn-${i}">▶ Play</button>
-          </div>
-          <p class="transcript">Transcript<br />${track.transcript}</p>
-        </section>
-        <p class="description">${track.description}</p>`;
-        audioWrapper.innerHTML += html;
+          <section class="audio-card" data-index="${i}">
+            <div class="card-head">
+              <div class="card-left">
+                <div class="card-title">${track.title}</div>
+                <div class="card-sub">${track.date}</div>
+                <div class="card-sub">Audio · 2m</div>
+              </div>
+
+              <button class="play-pill" id="btn-${i}" onclick="togglePlay(${i})" aria-label="Play">
+                <span class="play-icon" id="icon-${i}">▶</span>
+                <span class="play-text" id="text-${i}">Play</span>
+              </button>
+            </div>
+
+            <div class="card-divider"></div>
+
+            <div class="card-transcript" role="button" tabindex="0"
+              onclick="openTranscript(${i})"
+              onkeydown="if(event.key==='Enter' || event.key===' ') openTranscript(${i});">
+              <div class="t-label">Transcript</div>
+              <div class="t-preview">${escapeHtml(track.transcript).split('\n').slice(0,2).join(' ')}</div>
+            </div>
+          </section>
+
+          <p class="description">${track.description}</p>
+        `;
+        audioWrapper.insertAdjacentHTML("beforeend", html);
       });
     }
 
     function togglePlay(index) {
-      const isSameTrack = currentIndex === index;
-      const btn = document.getElementById(`btn-${index}`);
+      const same = currentIndex === index;
 
-      if (isSameTrack && !sharedAudio.paused) {
+      // If tapping the same track while playing -> pause
+      if (same && !sharedAudio.paused) {
         sharedAudio.pause();
-        btn.innerText = "▶ Play";
+        setButtonState(index, false);
         return;
       }
 
-      const oldBtn = document.getElementById(`btn-${currentIndex}`);
-      if (oldBtn) oldBtn.innerText = "▶ Play";
+      // Reset old button state
+      if (currentIndex !== -1) setButtonState(currentIndex, false);
 
-      sharedAudio.src = tracks[index].file;
-      sharedAudio.play();
-      btn.innerText = "⏸ Pause";
+      // Play new
       currentIndex = index;
+      sharedAudio.src = tracks[index].file;
+      sharedAudio.play().then(() => {
+        setButtonState(index, true);
+      }).catch(() => {
+        // iOS can block autoplay if not initiated by a user gesture — but this is initiated by click
+        setButtonState(index, false);
+      });
+    }
+
+    function setButtonState(index, isPlaying) {
+      const icon = document.getElementById(`icon-${index}`);
+      const text = document.getElementById(`text-${index}`);
+      const btn  = document.getElementById(`btn-${index}`);
+      if (!icon || !text || !btn) return;
+
+      if (isPlaying) {
+        icon.textContent = "⏸";
+        text.textContent = "Pause";
+        btn.classList.add("is-playing");
+      } else {
+        icon.textContent = "▶";
+        text.textContent = "Play";
+        btn.classList.remove("is-playing");
+      }
     }
 
     sharedAudio.addEventListener("ended", () => {
-      const btn = document.getElementById(`btn-${currentIndex}`);
-      if (btn) btn.innerText = "▶ Play";
+      if (currentIndex !== -1) setButtonState(currentIndex, false);
+
+      // Auto-advance to next track like Notes
+      if (currentIndex + 1 < tracks.length) {
+        togglePlay(currentIndex + 1);
+      }
     });
+
+    function openTranscript(index) {
+      const t = tracks[index];
+      sheetTitle.textContent = t.title;
+      sheetMeta.innerHTML = `${formatShortDate(t.date)} <span class="dot">•</span> ${t.duration}`;
+      sheetBody.textContent = t.transcript;
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-lock");
+    }
+
+    function closeTranscript() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-lock");
+    }
+
+    modalBackdrop.addEventListener("click", closeTranscript);
+    sheetDone.addEventListener("click", closeTranscript);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeTranscript();
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatShortDate(dateStr) {
+      // You’re storing a readable string; we’ll keep it, just shorten the prefix visually.
+      // Example: "Feb 28, 2025 at 12:40 AM" -> "2/28/25, 12:40 AM"
+      try {
+        const parts = dateStr.replace(" at ", ", ").replace(",", "");
+        // If you want true parsing later, we can do it; this is good enough to match the screenshot vibe.
+        return dateStr.replace("Feb ", "2/").replace(" 2025", "/25").replace(" at ", ", ");
+      } catch {
+        return dateStr;
+      }
+    }
 
     renderTracks();
   </script>
