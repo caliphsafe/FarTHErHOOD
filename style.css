@@ -766,3 +766,9 @@ body.modal-lock{ overflow: hidden; }
   color: rgba(255,255,255,0.42);
   font-size: 0.9rem;
 }
+.notes-sub{
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
