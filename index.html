@@ -628,10 +628,23 @@ it's getting harder to hold the dinero…`,
           `;
         });
     }
+// Auto-refresh public notes every 15 seconds
+let notesIntervalId = null;
 
+function startNotesAutoRefresh(ms = 15000) {
+  // load once immediately
+  loadNotes();
+
+  // clear any existing interval (prevents duplicates if called twice)
+  if (notesIntervalId) clearInterval(notesIntervalId);
+
+  notesIntervalId = setInterval(() => {
+    loadNotes();
+  }, ms);
+}
     renderTracks();
     updateTimer();
-    loadNotes();
+    startNotesAutoRefresh(15000); // 15000 = 15 seconds (use 10000 for 10 seconds)
   </script>
 </body>
 </html>
