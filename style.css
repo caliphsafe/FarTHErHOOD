@@ -578,3 +578,191 @@ body.modal-lock{ overflow: hidden; }
   color: #0b0b0c;
   cursor: pointer;
 }
+
+/* ===== Collaborators iOS-style popover ===== */
+.collab-popover{
+  position: fixed;
+  z-index: 3000;
+  width: min(360px, calc(100vw - 24px));
+  border-radius: 26px;
+  padding: 14px 14px 12px;
+  background: rgba(28,28,30,0.72);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.65);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  display: none;
+  transform-origin: top right;
+}
+
+.collab-popover.open{ display: block; }
+
+.collab-nub{
+  position: absolute;
+  top: -10px;
+  right: 54px; /* updated by JS, this is fallback */
+  width: 18px;
+  height: 18px;
+  background: rgba(28,28,30,0.72);
+  border-left: 1px solid rgba(255,255,255,0.10);
+  border-top: 1px solid rgba(255,255,255,0.10);
+  transform: rotate(45deg);
+  border-top-left-radius: 4px;
+}
+
+.collab-head{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 2px 12px;
+}
+
+.collab-avatar{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 18px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.92);
+}
+
+.collab-title{
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+}
+
+.collab-sub{
+  margin-top: 2px;
+  color: rgba(255,255,255,0.62);
+  font-size: 0.95rem;
+}
+
+.collab-actions{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 0 2px 14px;
+}
+
+.collab-action{
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 12px 10px 10px;
+  text-align: center;
+}
+
+.collab-action-ico{
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 6px;
+  filter: saturate(1.2);
+}
+
+.collab-action-txt{
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-size: 0.95rem;
+}
+
+.collab-section{
+  padding: 8px 2px 0;
+}
+
+.collab-section-title{
+  color: rgba(255,255,255,0.65);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 6px 0 10px;
+  font-size: 1.05rem;
+}
+
+.collab-card{
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 12px 12px;
+}
+
+.collab-card-title{
+  font-weight: 900;
+  font-size: 1.05rem;
+}
+
+.collab-card-sub{
+  color: rgba(255,255,255,0.62);
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.collab-list{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.collab-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+}
+
+.collab-row + .collab-row{
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.collab-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(250,204,21,0.95);
+  box-shadow: 0 0 0 4px rgba(250,204,21,0.12);
+  flex: 0 0 auto;
+}
+
+.collab-row-main{
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.collab-row-title{
+  font-weight: 900;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collab-row-sub{
+  color: rgba(255,255,255,0.62);
+  margin-top: 2px;
+  font-size: 0.95rem;
+}
+
+.collab-tag{
+  flex: 0 0 auto;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: rgba(250,204,21,0.95);
+  background: rgba(250,204,21,0.12);
+  border: 1px solid rgba(250,204,21,0.22);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.collab-foot{
+  padding: 10px 2px 0;
+}
+
+.collab-foot-muted{
+  color: rgba(255,255,255,0.42);
+  font-size: 0.9rem;
+}
