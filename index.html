@@ -598,70 +598,79 @@ it's getting harder to hold the dinero…`,
     }
 
     function loadNotes(){
-      const container = document.getElementById("publicNotes");
-      if (!container) return;
+  const container = document.getElementById("publicNotes");
+  if (!container) return;
 
-      if(!NOTE_API_URL){
+  if(!NOTE_API_URL){
+    container.innerHTML = `
+      <div class="message">
+        <p><strong>Setup needed</strong></p>
+        <p>Set NOTE_API_URL to your Apps Script Web App /exec URL.</p>
+      </div>
+    `;
+    return;
+  }
+
+  fetch(`${NOTE_API_URL}?action=list`, { cache: "no-store" })
+    .then(r => r.text())
+    .then(t => {
+      let json;
+      try {
+        json = JSON.parse(t);
+      } catch (e) {
+        throw new Error("Invalid JSON response");
+      }
+      return json;
+    })
+    .then(json => {
+      if(!json || json.result !== "success" || !Array.isArray(json.notes)){
         container.innerHTML = `
           <div class="message">
-            <p><strong>Setup needed</strong></p>
-            <p>Set NOTE_API_URL to your Apps Script Web App /exec URL.</p>
+            <p><strong>Couldn’t load notes</strong></p>
+            <p>Try reloading.</p>
           </div>
         `;
         return;
       }
 
-      fetch(`${NOTE_API_URL}?action=list`, { cache: "no-store" })
-        .then(r => r.json())
-        .then(json => {
-          if(!json || json.result !== "success" || !Array.isArray(json.notes)){
-            container.innerHTML = `
-              <div class="message">
-                <p><strong>Couldn’t load notes</strong></p>
-                <p>Try reloading.</p>
-              </div>
-            `;
-            return;
-          }
+      const notes = json.notes;
 
-          const notes = json.notes;
+      if(notes.length === 0){
+        container.innerHTML = `
+          <div class="message">
+            <p><strong>No notes yet</strong></p>
+            <p>Be the first to leave a message.</p>
+          </div>
+        `;
+        return;
+      }
 
-          if(notes.length === 0){
-            container.innerHTML = `
-              <div class="message">
-                <p><strong>No notes yet</strong></p>
-                <p>Be the first to leave a message.</p>
-              </div>
-            `;
-            return;
-          }
+      container.innerHTML = notes.map(n => {
+        const nm = escapeHtml(n.name || "Anonymous");
+        const msg = escapeHtml(n.message || "");
+        const ts = escapeHtml(n.timestamp || "");
+        return `
+          <div class="message">
+            <p><strong>${nm}</strong></p>
+            ${ts ? `<p class="msg-ts">${ts}</p>` : ""}
+            <p>${msg}</p>
+          </div>
+        `;
+      }).join("");
+    })
+    .catch(() => {
+      container.innerHTML = `
+        <div class="message">
+          <p><strong>Couldn’t load notes</strong></p>
+          <p>Try reloading.</p>
+        </div>
+      `;
+    });
+}
 
-          container.innerHTML = notes.map(n => {
-            const nm = escapeHtml(n.name || "Anonymous");
-            const msg = escapeHtml(n.message || "");
-            const ts = escapeHtml(n.timestamp || "");
-            return `
-              <div class="message">
-                <p><strong>${nm}</strong></p>
-                ${ts ? `<p class="msg-ts">${ts}</p>` : ""}
-                <p>${msg}</p>
-              </div>
-            `;
-          }).join("");
-        })
-        .catch(() => {
-          container.innerHTML = `
-            <div class="message">
-              <p><strong>Couldn’t load notes</strong></p>
-              <p>Try reloading.</p>
-            </div>
-          `;
-        });
-    }
-
-    renderTracks();
-    updateTimer();
-    loadNotes();
+renderTracks();
+updateTimer();
+loadNotes();
   </script>
 </body>
 </html>
