@@ -169,6 +169,13 @@ mark{
   stroke-linejoin: round;
 }
 
+.ico-img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+}
+
 /* ======= Audio card (iOS Notes voice memo card look) ======= */
 .audio-card{
   background: linear-gradient(180deg, rgba(42,42,46,0.95), rgba(34,34,38,0.88));
