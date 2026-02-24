@@ -23,7 +23,7 @@
   <img src="listen.png" alt="Collaborators" class="ico-img" />
 </a>
 
-      <a href="#" class="nav-capsule-btn" aria-label="Share">
+      <a href="#" class="nav-capsule-btn" aria-label="Share" id="btnShare">
   <img src="share.png" alt="Share" class="ico-img" />
 </a>
 
@@ -731,6 +731,37 @@ document.addEventListener("keydown", (e) => {
 // Reposition on resize/orientation change
 window.addEventListener("resize", () => {
   if (collabPopover?.classList.contains("open")) openCollabPopover();
+});
+    // ===== Share button: iOS/Android Share Sheet when available =====
+const btnShare = document.getElementById("btnShare");
+
+btnShare?.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const shareData = {
+    title: document.title,
+    text: "CALIPH — FarTHErHOOD",
+    url: window.location.href
+  };
+
+  try {
+    // iOS Safari supports navigator.share in many cases (must be user-initiated)
+    if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+      await navigator.share(shareData);
+      return;
+    }
+  } catch (err) {
+    // user canceled or share failed — ignore
+  }
+
+  // Fallback if Web Share isn't available:
+  // Copy link + small alert (you can swap this with a glass popover if you want)
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link copied. Paste it anywhere to share.");
+  } catch {
+    prompt("Copy this link to share:", window.location.href);
+  }
 });
   </script>
 </body>
